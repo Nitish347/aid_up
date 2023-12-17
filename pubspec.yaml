@@ -37,6 +37,11 @@ dependencies:
   cupertino_icons: ^1.0.2
   google_fonts:
   get:
+  bulleted_list:
+  carousel_slider: ^4.2.1
+  page_view_dot_indicator: ^2.3.0
+
+
 
 dev_dependencies:
   flutter_test:
@@ -64,6 +69,8 @@ flutter:
   assets:
     - assets/images/FoodDOnation.png
     - assets/images/Teach.png
+    - assets/images/children.png
+    - assets/images/children2.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

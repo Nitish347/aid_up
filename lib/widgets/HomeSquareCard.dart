@@ -7,8 +7,9 @@ Widget HomeCard(double height, double width, String text, String title, String p
   return Column(
     children: [
       Container(
-        height: height * 0.25,
-        width: height * 0.25,
+        margin: EdgeInsets.all(5),
+        height: height * 0.26,
+        width: height * 0.26,
         decoration: BoxDecoration(
             color: Colors.white,
             boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.25), blurRadius: 8)],

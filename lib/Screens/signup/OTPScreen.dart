@@ -1,4 +1,7 @@
+import 'package:aid_up/Screens/HomeScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../Constants.dart';
@@ -89,7 +92,9 @@ class _PinScreenState extends State<PinScreen> {
               width: width,
               alignment: Alignment.center,
               child: InkWell(
-                onTap: () {},
+                onTap: () {
+                  Get.to(HomeScreen());
+                },
                 child: Container(
                   width: width * 0.4,
                   height: height * 0.05,
@@ -149,7 +154,7 @@ class _PinScreenState extends State<PinScreen> {
         keyboardType: TextInputType.number,
         textAlign: TextAlign.center,
         maxLength: 1,
-        obscureText: true,
+        // obscureText: true,
         onChanged: (value) {
           // Move focus to the next TextField when a digit is entered
           if (value.length == 1) {

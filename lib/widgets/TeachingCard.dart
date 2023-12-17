@@ -1,16 +1,19 @@
 import 'dart:math';
 
 import 'package:aid_up/Constants.dart';
+import 'package:aid_up/Screens/CampDetail.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 Widget TeachingCard(double height, double width, String text, String title, String pic) {
   return Padding(
     padding: const EdgeInsets.all(8.0),
     child: Container(
-      // height: height * 0.,
-      // width: height * 0.28,
+      height: height * 0.3,
+      width: width * 0.45,
       decoration: BoxDecoration(
           color: Colors.white,
           boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.25), blurRadius: 8)],
@@ -22,21 +25,21 @@ Widget TeachingCard(double height, double width, String text, String title, Stri
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              height: height * 0.12,
-              width: height * 0.25,
+              height: height * 0.14,
+              width: width * 0.45,
               decoration: BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(8)
                   // image: DecorationImage(image: AssetImage(pic))
                   ),
             ),
             SizedBox(
-              height: height * 0.01,
+              height: height * 0.02,
             ),
             Text(
               "Pankh NGO",
               style: GoogleFonts.dmSans(fontWeight: FontWeight.w600, fontSize: height * 0.022),
             ),
             SizedBox(
-              height: height * 0.02,
+              height: height * 0.015,
             ),
             Row(
               children: [
@@ -87,11 +90,11 @@ Widget TeachingCard(double height, double width, String text, String title, Stri
             SizedBox(
               height: height * 0.02,
             ),
-            Container(
-              width: width * 0.36,
-              child: Center(
+            Center(
+              child: InkWell(
+                onTap: () => Get.to(CampDetailScreen()),
                 child: Container(
-                  width: width * 0.35,
+                  width: width * 0.45,
                   height: height * 0.04,
                   alignment: Alignment.center,
                   decoration:

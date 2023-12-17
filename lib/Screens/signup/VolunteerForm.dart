@@ -207,7 +207,7 @@ class _VoulnteerFormState extends State<VoulnteerForm> {
                         print('Date of Birth: ${_dobController.text}');
                         print('Password: ${_passwordController.text}');
                         print('Repeat Password: ${_repeatPasswordController.text}');
-                        // Get.to(PinScreen());
+                        Get.to(PinScreen());
                       }
                     },
                     child: Container(
