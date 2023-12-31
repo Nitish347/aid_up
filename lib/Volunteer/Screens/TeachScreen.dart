@@ -1,6 +1,8 @@
-import 'package:aid_up/widgets/TeachCard.dart';
+// import 'package:aid_up/widgets/TeachCard.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../widgets/TeachCard2.dart';
 
 class TeachScreen extends StatelessWidget {
   const TeachScreen({Key? key}) : super(key: key);
@@ -94,7 +96,7 @@ class TeachScreen extends StatelessWidget {
               child: Container(
                   child: ListView(
                 children: List.generate(10, (index) {
-                  return TeachCard(height, width);
+                  return TeachCard2(height, width);
                 }),
               )),
             ),

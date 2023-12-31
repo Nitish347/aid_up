@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../Constants.dart';
+// import '../Constants.dart';
+import '../../Constants.dart';
 import 'IconWithText.dart';
 
 Widget TeachCard(double height, double width) {

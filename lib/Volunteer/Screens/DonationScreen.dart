@@ -1,5 +1,5 @@
-import 'package:aid_up/widgets/DonateScreenCard.dart';
-import 'package:aid_up/widgets/TeachCard.dart';
+// import 'package:aid_up/widgets/DonateScreenCard.dart';
+// import 'package:aid_up/widgets/TeachCard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -7,6 +7,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:page_view_dot_indicator/page_view_dot_indicator.dart';
 
+import '../widgets/DonateScreenCard.dart';
+import '../widgets/TeachCard.dart';
 import 'DonateMoneyScreen.dart';
 
 class DonationScreen extends StatefulWidget {

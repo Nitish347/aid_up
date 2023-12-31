@@ -1,12 +1,14 @@
 import 'dart:math';
 
 import 'package:aid_up/Constants.dart';
-import 'package:aid_up/Screens/DonateDetail.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../Screens/DonateDetail.dart';
 
 Widget DonateScreenCard(double height, double width, String text, String title, String pic) {
   return Padding(

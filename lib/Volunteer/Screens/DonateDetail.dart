@@ -1,11 +1,13 @@
 import 'package:aid_up/Constants.dart';
-import 'package:aid_up/widgets/DescriptionText.dart';
-import 'package:aid_up/widgets/HeadingText.dart';
-import 'package:aid_up/widgets/IconWithText.dart';
+// import 'package:aid_up/widgets/DescriptionText.dart';
+// import 'package:aid_up/widgets/HeadingText.dart';
+// import 'package:aid_up/widgets/IconWithText.dart';
 import 'package:bulleted_list/bulleted_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../widgets/DescriptionText.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,17 +18,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: CampDetailScreen(),
+      home: DonateDetailScreen(),
     );
   }
 }
 
-class CampDetailScreen extends StatefulWidget {
+class DonateDetailScreen extends StatefulWidget {
   @override
-  _CampDetailScreenState createState() => _CampDetailScreenState();
+  _DonateDetailScreenState createState() => _DonateDetailScreenState();
 }
 
-class _CampDetailScreenState extends State<CampDetailScreen> {
+class _DonateDetailScreenState extends State<DonateDetailScreen> {
   ScrollController _scrollController = ScrollController();
   bool _isScrolledUp = false;
   List _responsibilty = [
@@ -178,140 +180,116 @@ class _CampDetailScreenState extends State<CampDetailScreen> {
                       )
                     ],
                   ),
-                  SizedBox(
-                    height: height * 0.02,
-                  ),
-                  Container(
-                    height: height * 0.12,
-                    width: width,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          width: width * 0.45,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              HeadingText("Subject", "Maths", height, width),
-                              SizedBox(
-                                height: height * 0.005,
-                              ),
-                              HeadingText("Age Group", "10-15 years old", height, width),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          width: width * 0.4,
-                          alignment: Alignment.centerRight,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              IconWithText(height, Icons.location_on_sharp, "Mahagun Puram"),
-                              IconWithText(height, Icons.calendar_month, "Every Sunday"),
-                              IconWithText(height, Icons.watch_later_outlined, "9 am"),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  DescriptionText(
-                      "Description",
-                      "Our NGO, called \"PANKH,\" is dedicated to making a positive impact in our community and beyond. We believe that everyone has the power to create change, regardless of their age. We offer a wide range of volunteering opportunities suitable for people of all age groups.",
-                      height,
-                      width),
                   Text(
-                    "Responsibility: ",
+                    "by Awaaz NGO",
                     style: GoogleFonts.dmSans(
-                        fontSize: height * 0.022, fontWeight: FontWeight.w600, color: Colors.black),
-                  ),
-                  SizedBox(
-                    height: height * 0.01,
-                  ),
-                  BulletedList(
-                    listItems: _responsibilty,
-                    listOrder: ListOrder.ordered,
-                    bulletColor: Colors.black,
-                    style: GoogleFonts.dmSans(
-                        fontSize: height * 0.02, color: Colors.black, fontWeight: FontWeight.w400),
-                  ),
-                  Text(
-                    "Select Donation Type: ",
-                    style: GoogleFonts.dmSans(
-                        fontSize: height * 0.022, fontWeight: FontWeight.w600, color: Colors.black),
+                        fontWeight: FontWeight.w300, fontSize: height * 0.018, color: Colors.grey),
                   ),
                   SizedBox(
                     height: height * 0.02,
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text(
+                        "Rs 28000",
+                        style: GoogleFonts.dmSans(
+                            fontWeight: FontWeight.w600,
+                            fontSize: height * 0.02,
+                            color: orangeColor),
+                      ),
+                      SizedBox(
+                        width: width * 0.01,
+                      ),
+                      Text(
+                        "raised from Rs.40,000",
+                        style: GoogleFonts.dmSans(
+                            fontWeight: FontWeight.w300,
+                            fontSize: height * 0.018,
+                            color: Colors.grey),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: height * 0.01,
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          height: height * 0.004,
+                          // width: width * 0.6,
+                          color: Colors.orange,
+                        ),
+                      ),
+                      Container(
+                        height: height * 0.002,
+                        width: width * 0.4, // max value 0.91
+                        color: Colors.grey,
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: height * 0.01,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
                         children: [
-                          Checkbox(
-                            value: _clothesChecked,
-                            checkColor: Colors.white,
-                            activeColor: orangeColor,
-                            onChanged: (value) {
-                              setState(() {
-                                _clothesChecked = value!;
-                              });
-                            },
+                          Icon(
+                            Icons.groups_outlined,
+                            color: orangeColor,
+                            size: height * 0.028,
+                          ),
+                          SizedBox(
+                            width: width * 0.01,
                           ),
                           Text(
-                            "Clothes",
+                            "300 Donars",
                             style: GoogleFonts.dmSans(
-                                fontSize: height * 0.02,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.black),
+                                fontWeight: FontWeight.w300,
+                                fontSize: height * 0.018,
+                                color: orangeColor),
                           ),
                         ],
                       ),
                       Row(
                         children: [
-                          Checkbox(
-                            value: _booksAndStationeryChecked,
-                            checkColor: Colors.white,
-                            activeColor: orangeColor,
-                            onChanged: (value) {
-                              setState(() {
-                                _booksAndStationeryChecked = value!;
-                              });
-                            },
+                          Icon(
+                            Icons.timer_outlined,
+                            color: Colors.grey,
+                            size: height * 0.025,
+                          ),
+                          SizedBox(
+                            width: width * 0.01,
                           ),
                           Text(
-                            "Books & Stationery",
+                            "8 days left!",
                             style: GoogleFonts.dmSans(
-                                fontSize: height * 0.02,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.black),
+                                fontWeight: FontWeight.w300,
+                                fontSize: height * 0.017,
+                                color: Colors.grey),
                           ),
                         ],
                       ),
-                      Row(
-                        children: [
-                          Checkbox(
-                            value: _foodChecked,
-                            checkColor: Colors.white,
-                            activeColor: orangeColor,
-                            onChanged: (value) {
-                              setState(() {
-                                _foodChecked = value!;
-                              });
-                            },
-                          ),
-                          Text(
-                            "Food",
-                            style: GoogleFonts.dmSans(
-                                fontSize: height * 0.02,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.black),
-                          ),
-                        ],
-                      )
                     ],
                   ),
+                  SizedBox(
+                    height: height * 0.03,
+                  ),
+                  DescriptionText(
+                      "About NGO",
+                      "Our NGO, called \"Awaaz,\" is dedicated to making a positive impact in our community and beyond. We believe that everyone has the power to create change, regardless of their age. We offer a wide range of volunteering opportunities suitable for people of all age groups.",
+                      height,
+                      width),
+                  SizedBox(
+                    height: height * 0.02,
+                  ),
+                  DescriptionText(
+                      "About cause:",
+                      "Our NGO, called \"Awaaz,\" is dedicated to making a positive impact in our community and beyond. We believe that everyone has the power to create change.",
+                      height,
+                      width),
                   SizedBox(
                     height: height * 0.05,
                   ),
@@ -325,7 +303,7 @@ class _CampDetailScreenState extends State<CampDetailScreen> {
                       decoration:
                           BoxDecoration(color: blueColor, borderRadius: BorderRadius.circular(32)),
                       child: Text(
-                        "Book",
+                        "Donate Now",
                         style: GoogleFonts.dmSans(fontSize: height * 0.022, color: Colors.white),
                       ),
                     ),

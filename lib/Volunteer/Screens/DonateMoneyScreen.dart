@@ -1,7 +1,9 @@
-import 'package:aid_up/widgets/DonateScreenCard.dart';
-import 'package:aid_up/widgets/TeachCard.dart';
+// import 'package:aid_up/widgets/DonateScreenCard.dart';
+// import 'package:aid_up/widgets/TeachCard.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../widgets/DonateScreenCard.dart';
 
 class DonateMoneyScreen extends StatelessWidget {
   const DonateMoneyScreen({Key? key}) : super(key: key);

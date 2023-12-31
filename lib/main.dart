@@ -1,11 +1,12 @@
-import 'package:aid_up/Screens/DonateDetail.dart';
-import 'package:aid_up/Screens/DonateMoneyScreen.dart';
-import 'package:aid_up/Screens/DonationScreen.dart';
-import 'package:aid_up/Screens/HomeScreen.dart';
-import 'package:aid_up/Screens/TeachScreen.dart';
-import 'package:aid_up/Screens/signup/CreateAccount.dart';
+import 'package:aid_up/NGO/Screens/DonationCamp.dart';
+import 'package:aid_up/Volunteer/Screens/HomeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import 'NGO/Screens/NGOHome.dart';
+import 'NGO/Screens/TeachingCamp.dart';
+import 'Volunteer/Screens/Profile.dart';
+import 'Volunteer/Screens/signup/CreateAccount.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: CreateAccount(),
+      home: DonationCamp(),
     );
   }
 }

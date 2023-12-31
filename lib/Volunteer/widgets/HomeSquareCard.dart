@@ -8,8 +8,8 @@ Widget HomeCard(double height, double width, String text, String title, String p
     children: [
       Container(
         margin: EdgeInsets.all(5),
-        height: height * 0.26,
-        width: height * 0.26,
+        // height: width * 0.26,
+        width: width * 0.4,
         decoration: BoxDecoration(
             color: Colors.white,
             boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.25), blurRadius: 8)],
@@ -28,7 +28,7 @@ Widget HomeCard(double height, double width, String text, String title, String p
               ),
               Container(
                 height: height * 0.1,
-                width: width * 0.3,
+                // width: width * 0.3,
                 child: Image(
                   image: AssetImage(
                     pic,

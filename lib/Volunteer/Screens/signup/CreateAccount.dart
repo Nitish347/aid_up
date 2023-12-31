@@ -1,9 +1,9 @@
 import 'package:aid_up/Constants.dart';
-import 'package:aid_up/Screens/signup/NGOForm.dart';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../main.dart';
+import 'NGOForm.dart';
 import 'VolunteerForm.dart';
 
 class CreateAccount extends StatefulWidget {

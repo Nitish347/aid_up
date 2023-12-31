@@ -1,13 +1,18 @@
 import 'package:aid_up/Constants.dart';
-import 'package:aid_up/Screens/DonationScreen.dart';
-import 'package:aid_up/Screens/TeachScreen.dart';
-import 'package:aid_up/widgets/HomeSquareCard.dart';
-import 'package:aid_up/widgets/TeachingCard.dart';
+// import 'package:aid_up/Screens/DonationScreen.dart';
+// import 'package:aid_up/Screens/TeachScreen.dart';
+// import 'package:aid_up/widgets/HomeSquareCard.dart';
+// import 'package:aid_up/widgets/TeachingCard.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../widgets/HomeSquareCard.dart';
+import '../widgets/TeachingCard.dart';
+import 'DonationScreen.dart';
+import 'TeachScreen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);

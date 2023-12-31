@@ -1,10 +1,12 @@
-import 'package:aid_up/Screens/HomeScreen.dart';
+// import 'package:aid_up/Screens/HomeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../Constants.dart';
+import '../../../Constants.dart';
+// import '../../Constants.dart';
+import '../HomeScreen.dart';
 
 void main() {
   runApp(MyApp());
