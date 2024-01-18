@@ -32,55 +32,53 @@ class _CreateAccountState extends State<CreateAccount> with SingleTickerProvider
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
-    return MaterialApp(
-        home: Scaffold(
-      backgroundColor: Colors.white,
-      body: Padding(
-        padding: EdgeInsets.only(top: height * 0.03, left: width * 0.03, right: width * 0.03),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: height * 0.02,
-            ),
-            Text(
-              "Create account",
-              style: GoogleFonts.dmSans(
-                  color: orangeColor, fontSize: height * 0.04, fontWeight: FontWeight.w500),
-            ),
-            Container(
-              padding: EdgeInsets.all(16.0),
-              child: TabBar(
-                controller: _tabController,
-                tabs: [
-                  Tab(
-                    text: 'Volunteer',
+    return Scaffold(
+        backgroundColor: Colors.white,
+        body: Padding(
+          padding: EdgeInsets.only(top: height * 0.03, left: width * 0.03, right: width * 0.03),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: height * 0.05,
+              ),
+              Text(
+                "Create account",
+                style: GoogleFonts.dmSans(
+                    color: orangeColor, fontSize: height * 0.04, fontWeight: FontWeight.w500),
+              ),
+              Container(
+                padding: EdgeInsets.all(16.0),
+                child: TabBar(
+                  controller: _tabController,
+                  tabs: [
+                    Tab(
+                      text: 'Volunteer',
+                    ),
+                    Tab(text: 'NGO'),
+                  ],
+                  labelStyle:
+                      GoogleFonts.dmSans(fontWeight: FontWeight.w400, fontSize: height * 0.02),
+                  labelColor: blueColor,
+                  indicator: BoxDecoration(
+                    border: Border(bottom: BorderSide(color: blueColor, width: 2.0)),
                   ),
-                  Tab(text: 'NGO'),
-                ],
-                labelStyle:
-                    GoogleFonts.dmSans(fontWeight: FontWeight.w400, fontSize: height * 0.02),
-                labelColor: blueColor,
-                indicator: BoxDecoration(
-                  border: Border(bottom: BorderSide(color: blueColor, width: 2.0)),
                 ),
               ),
-            ),
-            Expanded(
-              child: TabBarView(
-                controller: _tabController,
-                children: [
-                  // Content for Volunteer tab
-                  VoulnteerForm(),
-                  // Content for NGO tab
-                  NGOForm()
-                ],
+              Expanded(
+                child: TabBarView(
+                  controller: _tabController,
+                  children: [
+                    // Content for Volunteer tab
+                    VoulnteerForm(),
+                    // Content for NGO tab
+                    NGOForm()
+                  ],
+                ),
               ),
-            ),
-          ],
-        ),
-      ),
-    ));
+            ],
+          ),
+        ));
   }
 }

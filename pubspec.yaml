@@ -41,6 +41,11 @@ dependencies:
   carousel_slider: ^4.2.1
   page_view_dot_indicator: ^2.3.0
   dropdown_textfield: ^1.0.8
+  firebase_auth: ^4.7.3
+  firebase_core:
+  loading_animation_widget:
+  cloud_firestore:
+  firebase_storage:
 
 
 

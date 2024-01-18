@@ -1,4 +1,6 @@
 // import 'package:aid_up/Screens/signup/OTPScreen.dart';
+import 'package:aid_up/controller/obsData.dart';
+import 'package:aid_up/model/UserModel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -23,7 +25,7 @@ class _VoulnteerFormState extends State<VoulnteerForm> {
   TextEditingController _repeatPasswordController = TextEditingController();
   bool _obscurePassword = true;
   bool _obscureRepeatPassword = true;
-
+  final controller = Get.put(ObsData());
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -202,16 +204,25 @@ class _VoulnteerFormState extends State<VoulnteerForm> {
                   alignment: Alignment.center,
                   child: InkWell(
                     onTap: () {
-                      if (_formKey.currentState?.validate() ?? false) {
-                        // Form is valid, perform your registration logic here
-                        // For example, you can print the values for demonstration
-                        print('Email: ${_emailController.text}');
-                        print('Phone Number: ${_phoneNumberController.text}');
-                        print('Date of Birth: ${_dobController.text}');
-                        print('Password: ${_passwordController.text}');
-                        print('Repeat Password: ${_repeatPasswordController.text}');
-                        Get.to(PinScreen());
-                      }
+                      // if (_formKey.currentState?.validate() ?? false) {
+                      // Form is valid, perform your registration logic here
+                      // For example, you can print the values for demonstration
+                      UserModel userModel = UserModel.fromJson({
+                        "email": _emailController.text,
+                        "phone": _phoneNumberController.text,
+                        "dob": _dobController.text,
+                        "password": _passwordController.text
+                      });
+                      print('Email: ${_emailController.text}');
+                      print('Phone Number: ${_phoneNumberController.text}');
+                      print('Date of Birth: ${_dobController.text}');
+                      print('Password: ${_passwordController.text}');
+                      print('Repeat Password: ${_repeatPasswordController.text}');
+
+                      Get.to(PinScreen(
+                        userModel: userModel,
+                      ));
+                      // }
                     },
                     child: Container(
                       width: width * 0.4,

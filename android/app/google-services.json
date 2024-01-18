@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "999132781741",
+    "project_id": "aidup-fa635",
+    "storage_bucket": "aidup-fa635.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:999132781741:android:837c8af496cf7e5f89fa24",
+        "android_client_info": {
+          "package_name": "com.example.aid_up"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDuEj9-hIkUv5LPvPpqvP3J_pWhJ3pkrA4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

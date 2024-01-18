@@ -1,14 +1,19 @@
 import 'package:aid_up/NGO/Screens/DonationCamp.dart';
 import 'package:aid_up/Volunteer/Screens/HomeScreen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'NGO/Screens/Address.dart';
+import 'NGO/Screens/MoneyDoinationNGO.dart';
 import 'NGO/Screens/NGOHome.dart';
 import 'NGO/Screens/TeachingCamp.dart';
 import 'Volunteer/Screens/Profile.dart';
 import 'Volunteer/Screens/signup/CreateAccount.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -25,7 +30,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: DonationCamp(),
+      home: CreateAccount(),
     );
   }
 }

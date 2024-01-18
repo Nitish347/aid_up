@@ -1,40 +1,48 @@
 // import 'package:aid_up/Screens/HomeScreen.dart';
+import 'package:aid_up/Firestore/FirebaseUser.dart';
+import 'package:aid_up/controller/obsData.dart';
+import 'package:aid_up/model/UserModel.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../../Constants.dart';
 // import '../../Constants.dart';
 import '../HomeScreen.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: PinScreen(),
-    );
-  }
-}
-
 class PinScreen extends StatefulWidget {
+  UserModel userModel;
+  PinScreen({required this.userModel});
   @override
   _PinScreenState createState() => _PinScreenState();
 }
 
 class _PinScreenState extends State<PinScreen> {
+  FirebaseAuth auth = FirebaseAuth.instance;
+
+  String verficationID_received = "";
   TextEditingController _pinController1 = TextEditingController();
   TextEditingController _pinController2 = TextEditingController();
   TextEditingController _pinController3 = TextEditingController();
   TextEditingController _pinController4 = TextEditingController();
+  TextEditingController _pinController5 = TextEditingController();
+  TextEditingController _pinController6 = TextEditingController();
   FocusNode _pin1FocusNode = FocusNode();
   FocusNode _pin2FocusNode = FocusNode();
   FocusNode _pin3FocusNode = FocusNode();
   FocusNode _pin4FocusNode = FocusNode();
+  FocusNode _pin5FocusNode = FocusNode();
+  FocusNode _pin6FocusNode = FocusNode();
+  bool _loading = false;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    verify(widget.userModel.phone!);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,6 +93,8 @@ class _PinScreenState extends State<PinScreen> {
                 buildPinTextField(_pinController2, _pin2FocusNode),
                 buildPinTextField(_pinController3, _pin3FocusNode),
                 buildPinTextField(_pinController4, _pin4FocusNode),
+                buildPinTextField(_pinController5, _pin5FocusNode),
+                buildPinTextField(_pinController6, _pin6FocusNode),
               ],
             ),
             SizedBox(
@@ -95,7 +105,15 @@ class _PinScreenState extends State<PinScreen> {
               alignment: Alignment.center,
               child: InkWell(
                 onTap: () {
-                  Get.to(HomeScreen());
+                  // Get.to(HomeScreen());
+                  verifycode(
+                      _pinController1.text +
+                          _pinController2.text +
+                          _pinController3.text +
+                          _pinController4.text +
+                          _pinController5.text +
+                          _pinController6.text,
+                      context);
                 },
                 child: Container(
                   width: width * 0.4,
@@ -103,10 +121,13 @@ class _PinScreenState extends State<PinScreen> {
                   alignment: Alignment.center,
                   decoration:
                       BoxDecoration(color: blueColor, borderRadius: BorderRadius.circular(32)),
-                  child: Text(
-                    "Verify OTP",
-                    style: GoogleFonts.dmSans(fontSize: height * 0.022, color: Colors.white),
-                  ),
+                  child: _loading
+                      ? LoadingAnimationWidget.fourRotatingDots(
+                          color: Colors.white, size: height * 0.03)
+                      : Text(
+                          "Verify OTP",
+                          style: GoogleFonts.dmSans(fontSize: height * 0.022, color: Colors.white),
+                        ),
                 ),
               ),
             ),
@@ -166,6 +187,10 @@ class _PinScreenState extends State<PinScreen> {
               FocusScope.of(context).requestFocus(_pin3FocusNode);
             } else if (focusNode == _pin3FocusNode) {
               FocusScope.of(context).requestFocus(_pin4FocusNode);
+            } else if (focusNode == _pin4FocusNode) {
+              FocusScope.of(context).requestFocus(_pin5FocusNode);
+            } else if (focusNode == _pin5FocusNode) {
+              FocusScope.of(context).requestFocus(_pin6FocusNode);
             }
           }
         },
@@ -181,5 +206,48 @@ class _PinScreenState extends State<PinScreen> {
         ),
       ),
     );
+  }
+
+  void verify(String PhoneNumber) {
+    print(PhoneNumber);
+    auth.verifyPhoneNumber(
+        phoneNumber: "+91${PhoneNumber}",
+        verificationCompleted: (PhoneAuthCredential credential) async {
+          await auth.signInWithCredential(credential).then((value) {
+            print("login successfully");
+          });
+        },
+        verificationFailed: (FirebaseAuthException exception) {
+          print(exception.message);
+        },
+        codeSent: (String verficationID, int? resendtoken) {
+          verficationID_received = verficationID;
+          setState(() {
+            // otp_visible = true;
+          });
+        },
+        codeAutoRetrievalTimeout: (String verficationID) {});
+    print("code sent");
+  }
+
+  void verifycode(String otp, BuildContext context) async {
+    print(otp);
+    setState(() {
+      _loading = true;
+    });
+    PhoneAuthCredential credential =
+        PhoneAuthProvider.credential(verificationId: verficationID_received, smsCode: otp);
+    await auth.signInWithCredential(credential).then((value) async {
+      final User? user = auth.currentUser;
+      String uid = user!.uid.toString();
+      final controller = Get.put(ObsData());
+      controller.uid.value = user!.uid.toString();
+      setState(() {
+        _loading = false;
+      });
+      SaveUser.saveUser(context, widget.userModel, uid);
+      // await FirestoreMethods().uploadData(widget.user.toJson(), uid!);
+      print("logged in successfully");
+    });
   }
 }
