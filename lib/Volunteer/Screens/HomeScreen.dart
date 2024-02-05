@@ -1,4 +1,11 @@
+import 'dart:developer';
+
 import 'package:aid_up/Constants.dart';
+import 'package:aid_up/controller/obsData.dart';
+import 'package:aid_up/model/DonationNGO.dart';
+import 'package:aid_up/model/TeachingModel.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:aid_up/Screens/DonationScreen.dart';
 // import 'package:aid_up/Screens/TeachScreen.dart';
 // import 'package:aid_up/widgets/HomeSquareCard.dart';
@@ -8,15 +15,41 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
+import '../../Firestore/FirestoreData.dart';
+import '../../Firestore/Volunteer/FirebaseVUser.dart';
 import '../widgets/HomeSquareCard.dart';
 import '../widgets/TeachingCard.dart';
 import 'DonationScreen.dart';
 import 'TeachScreen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  void initState() {
+    // TODO: implement initState
+    loading();
+  }
+
+  bool _loading = false;
+  String name = "";
+  void loading() async {
+    setState(() {
+      _loading = true;
+    });
+    await FirestoreVData.userData(context, FirebaseAuth.instance.currentUser!.uid.toString());
+    setState(() {
+      _loading = false;
+    });
+  }
+
+  final controller = Get.put(ObsData());
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -66,7 +99,7 @@ class HomeScreen extends StatelessWidget {
                   height: height * 0.02,
                 ),
                 Text(
-                  "Hello Nitish Chaurasiya,",
+                  "Hello ${controller.userData["name"]},",
                   style: GoogleFonts.dmSans(
                       color: orangeColor, fontSize: height * 0.03, fontWeight: FontWeight.w500),
                 ),
@@ -106,15 +139,46 @@ class HomeScreen extends StatelessWidget {
                   height: height * 0.02,
                 ),
                 Container(
-                  height: height * 0.42,
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: List.generate(10, (index) {
-                      return TeachingCard(
-                          height, width, "text", "title", "assets/images/Teach.png");
-                    }),
-                  ),
-                ),
+                    height: height * 0.42,
+                    child: FutureBuilder(
+                      future: FirebaseFirestore.instance.collection("TeachingCamp").get(),
+                      builder: (context, snapshot) {
+                        // log(snapshot.data!.docs[0]["name"].toString());
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: LoadingAnimationWidget.waveDots(color: orangeColor, size: 50),
+                          );
+                        } else {
+                          return ListView(
+                            scrollDirection: Axis.horizontal,
+                            children: List.generate(snapshot.data!.docs.length, (index) {
+                              String name = snapshot.data!.docs[index]["name"];
+                              String phone = snapshot.data!.docs[index]["phone"];
+                              String address = snapshot.data!.docs[index]["address"];
+                              // String donationType = snapshot.data!.docs[index]["donation_type"];
+                              String time = snapshot.data!.docs[index]["time"];
+                              String date = snapshot.data!.docs[index]["date"];
+                              String desc = snapshot.data!.docs[index]["desc"];
+                              List rules = snapshot.data!.docs[index]["rules"];
+                              String subject = snapshot.data!.docs[index]["subject"];
+                              TeachiingNgoModel model = TeachiingNgoModel.fromJson({
+                                "name": name,
+                                "phone": phone,
+                                "subject": subject,
+                                "address": address,
+                                "date": date,
+                                "time": time,
+                                "desc": desc,
+                                "rules": rules,
+                              });
+
+                              return TeachingCard(
+                                  height, width, model, "assets/images/children.png");
+                            }),
+                          );
+                        }
+                      },
+                    )),
                 Text(
                   "Donation camps near you",
                   style: GoogleFonts.dmSans(fontSize: height * 0.024, fontWeight: FontWeight.w500),
@@ -123,15 +187,47 @@ class HomeScreen extends StatelessWidget {
                   height: height * 0.02,
                 ),
                 Container(
-                  height: height * 0.42,
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: List.generate(10, (index) {
-                      return TeachingCard(
-                          height, width, "text", "title", "assets/images/Teach.png");
-                    }),
-                  ),
-                )
+                    height: height * 0.42,
+                    child: FutureBuilder(
+                      future: FirebaseFirestore.instance.collection("DonationCamp").get(),
+                      builder: (context, snapshot) {
+                        // log(snapshot.data!.docs[0]["name"].toString());
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: LoadingAnimationWidget.waveDots(color: orangeColor, size: 50),
+                          );
+                        } else {
+                          return ListView(
+                            scrollDirection: Axis.horizontal,
+                            children: List.generate(snapshot.data!.docs.length, (index) {
+                              String name = snapshot.data!.docs[index]["name"];
+                              String phone = snapshot.data!.docs[index]["phone"];
+                              String address = snapshot.data!.docs[index]["address"];
+                              List donationType = snapshot.data!.docs[index]["donation_type"];
+                              String time = snapshot.data!.docs[index]["time"];
+                              String date = snapshot.data!.docs[index]["date"];
+                              String desc = snapshot.data!.docs[index]["desc"];
+                              List rules = snapshot.data!.docs[index]["rules"];
+
+                              // String subject = snapshot.data!.docs[index]["subject"];
+                              DonationNgoModel model = DonationNgoModel.fromJson({
+                                "name": name,
+                                "phone": phone,
+                                "address": address,
+                                "donation_type": donationType,
+                                "date": date,
+                                "time": time,
+                                "desc": desc,
+                                "rules": rules
+                              });
+
+                              return DonationCard(
+                                  height, width, model, "assets/images/children.png");
+                            }),
+                          );
+                        }
+                      },
+                    )),
               ],
             ),
           ),

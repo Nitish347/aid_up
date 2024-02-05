@@ -1,5 +1,6 @@
 import 'package:aid_up/Constants.dart';
 import 'package:aid_up/model/DonationNGO.dart';
+import 'package:aid_up/model/TeachingModel.dart';
 // import 'package:aid_up/widgets/DescriptionText.dart';
 // import 'package:aid_up/widgets/HeadingText.dart';
 // import 'package:aid_up/widgets/IconWithText.dart';
@@ -14,14 +15,14 @@ import '../widgets/DescriptionText.dart';
 import '../widgets/HeadingText.dart';
 import '../widgets/IconWithText.dart';
 
-class CampDetailScreen extends StatefulWidget {
-  DonationNgoModel model;
-  CampDetailScreen({required this.model});
+class TeachCampDetailScreen extends StatefulWidget {
+  TeachiingNgoModel model;
+  TeachCampDetailScreen({required this.model});
   @override
-  _CampDetailScreenState createState() => _CampDetailScreenState();
+  _TeachCampDetailScreenState createState() => _TeachCampDetailScreenState();
 }
 
-class _CampDetailScreenState extends State<CampDetailScreen> {
+class _TeachCampDetailScreenState extends State<TeachCampDetailScreen> {
   ScrollController _scrollController = ScrollController();
   bool _isScrolledUp = false;
   List _responsibilty = [
@@ -33,8 +34,6 @@ class _CampDetailScreenState extends State<CampDetailScreen> {
   bool _clothesChecked = false;
   bool _booksAndStationeryChecked = false;
   bool _foodChecked = false;
-  bool _money = false;
-  bool _medical = false;
 
   @override
   void initState() {
@@ -73,7 +72,9 @@ class _CampDetailScreenState extends State<CampDetailScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           InkWell(
-                            onTap: () => Get.back(),
+                            onTap: () {
+                              Get.back();
+                            },
                             child: Icon(
                               Icons.arrow_back_outlined,
                               color: _isScrolledUp ? Colors.black : Colors.white,
@@ -187,24 +188,33 @@ class _CampDetailScreenState extends State<CampDetailScreen> {
                     width: width,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        Container(
+                          width: width * 0.45,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              HeadingText("Subject", widget.model.subject!, height, width),
+                              SizedBox(
+                                height: height * 0.005,
+                              ),
+                              HeadingText("Age Group", "10-15 years old", height, width),
+                            ],
+                          ),
+                        ),
                         Container(
                           width: width * 0.4,
                           alignment: Alignment.centerRight,
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            // crossAxisAlignment: CrossAxisAlignment.spa,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               IconWithText(height, Icons.location_on_sharp, widget.model.address!),
-                              SizedBox(
-                                height: height * 0.01,
-                              ),
+                              IconWithText(height, Icons.calendar_month, "Every Sunday"),
                               IconWithText(height, Icons.watch_later_outlined, widget.model.time!),
                             ],
                           ),
-                        ),
-                        IconWithText(height, Icons.calendar_month, "Every Sunday"),
+                        )
                       ],
                     ),
                   ),
@@ -224,165 +234,8 @@ class _CampDetailScreenState extends State<CampDetailScreen> {
                     style: GoogleFonts.dmSans(
                         fontSize: height * 0.02, color: Colors.black, fontWeight: FontWeight.w400),
                   ),
-                  Text(
-                    "Select Donation Type: ",
-                    style: GoogleFonts.dmSans(
-                        fontSize: height * 0.022, fontWeight: FontWeight.w600, color: Colors.black),
-                  ),
                   SizedBox(
                     height: height * 0.02,
-                  ),
-                  Container(
-                    width: width,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Row(
-                          children: [
-                            Checkbox(
-                              value: _clothesChecked,
-                              checkColor: Colors.white,
-                              activeColor: orangeColor,
-                              onChanged: (value) {
-                                if (widget.model.donationType![0]["clothes"]) {
-                                  setState(() {
-                                    _clothesChecked = value!;
-                                  });
-                                }
-                              },
-                            ),
-                            FittedBox(
-                              child: Text(
-                                "Clothes",
-                                style: GoogleFonts.dmSans(
-                                    // fontSize: height * 0.015,
-                                    fontWeight: FontWeight.w400,
-                                    color: widget.model.donationType![0]["clothes"]
-                                        ? Colors.black
-                                        : Colors.grey),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Checkbox(
-                              value: _booksAndStationeryChecked,
-                              checkColor: Colors.white,
-                              activeColor: orangeColor,
-                              onChanged: (value) {
-                                setState(() {
-                                  if (widget.model.donationType![0]["books"])
-                                    _booksAndStationeryChecked = value!;
-                                });
-                              },
-                            ),
-                            FittedBox(
-                              child: Text(
-                                "Books & Stationery",
-                                style: GoogleFonts.dmSans(
-                                    // fontSize: height * 0.02,
-                                    fontWeight: FontWeight.w400,
-                                    color: widget.model.donationType![0]["books"]
-                                        ? Colors.black
-                                        : Colors.grey),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Checkbox(
-                              value: _foodChecked,
-                              checkColor: Colors.white,
-                              activeColor: orangeColor,
-                              onChanged: (value) {
-                                if (widget.model.donationType![0]["food"])
-                                  setState(() {
-                                    _foodChecked = value!;
-                                  });
-                              },
-                            ),
-                            FittedBox(
-                              child: Text(
-                                "Food",
-                                style: GoogleFonts.dmSans(
-                                    // fontSize: height * 0.02,
-                                    fontWeight: FontWeight.w400,
-                                    color: widget.model.donationType![0]["food"]
-                                        ? Colors.black
-                                        : Colors.grey),
-                              ),
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                  Container(
-                    width: width,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Row(
-                          children: [
-                            Checkbox(
-                              value: _medical,
-                              checkColor: Colors.white,
-                              activeColor: orangeColor,
-                              onChanged: (value) {
-                                if (widget.model.donationType![0]["medical"])
-                                  setState(() {
-                                    _medical = value!;
-                                  });
-                              },
-                            ),
-                            FittedBox(
-                              child: Text(
-                                "Medical",
-                                style: GoogleFonts.dmSans(
-                                    // fontSize: height * 0.015,
-                                    fontWeight: FontWeight.w400,
-                                    color: widget.model.donationType![0]["medical"]
-                                        ? Colors.black
-                                        : Colors.grey),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Checkbox(
-                              value: _money,
-                              checkColor: Colors.white,
-                              activeColor: orangeColor,
-                              onChanged: (value) {
-                                setState(() {
-                                  if (widget.model.donationType![0]["money"]) _money = value!;
-                                });
-                              },
-                            ),
-                            FittedBox(
-                              child: Text(
-                                "Money",
-                                style: GoogleFonts.dmSans(
-                                    // fontSize: height * 0.02,
-                                    fontWeight: FontWeight.w400,
-                                    color: widget.model.donationType![0]["money"]
-                                        ? Colors.black
-                                        : Colors.grey),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Container(
-                          width: width * 0.37,
-                        )
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: height * 0.05,
                   ),
                   Container(
                     alignment: Alignment.center,

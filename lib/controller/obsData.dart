@@ -5,8 +5,10 @@ import 'package:get/get.dart';
 class PendingRequestModel {}
 
 class ObsData extends GetxController {
-  RxBool loggedIn = false.obs;
+  RxBool loading = false.obs;
   RxString uid = "".obs;
+  RxMap ngoData = {}.obs;
+  RxMap userData = {}.obs;
   // Rx<UserModel> userModel =
   //     UserModel.fromJson({"email": "", "phone": "", "dob": "", "password": ""}).obs;
 }

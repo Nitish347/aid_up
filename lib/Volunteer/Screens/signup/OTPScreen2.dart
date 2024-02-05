@@ -1,6 +1,8 @@
 // import 'package:aid_up/Screens/HomeScreen.dart';
 import 'package:aid_up/Firestore/FirebaseUser.dart';
+import 'package:aid_up/NGO/Screens/NGOHome.dart';
 import 'package:aid_up/controller/obsData.dart';
+import 'package:aid_up/model/NgoModel.dart';
 import 'package:aid_up/model/UserModel.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -13,14 +15,14 @@ import '../../../Constants.dart';
 // import '../../Constants.dart';
 import '../HomeScreen.dart';
 
-class PinScreen extends StatefulWidget {
-  UserModel userModel;
-  PinScreen({required this.userModel});
+class PinScreen2 extends StatefulWidget {
+  NgoModel userModel;
+  PinScreen2({required this.userModel});
   @override
-  _PinScreenState createState() => _PinScreenState();
+  _PinScreen2State createState() => _PinScreen2State();
 }
 
-class _PinScreenState extends State<PinScreen> {
+class _PinScreen2State extends State<PinScreen2> {
   FirebaseAuth auth = FirebaseAuth.instance;
 
   String verficationID_received = "";
@@ -68,7 +70,7 @@ class _PinScreenState extends State<PinScreen> {
               height: height * 0.030,
             ),
             Text(
-              "Enter the 4 digit code sent to\nyou on ${widget.userModel.phone}. ",
+              "Enter the 4 digit code sent to\nyou on 9999xxxxxx. ",
               style: GoogleFonts.dmSans(
                   color: Colors.black, fontSize: height * 0.02, fontWeight: FontWeight.w400),
             ),
@@ -245,10 +247,10 @@ class _PinScreenState extends State<PinScreen> {
       setState(() {
         _loading = false;
       });
-      SaveUser.saveUser(context, widget.userModel, uid);
+      await SaveUser.saveNGO(context, widget.userModel, uid);
       // await FirestoreMethods().uploadData(widget.user.toJson(), uid!);
       print("logged in successfully");
-      Get.to(HomeScreen());
+      Get.to(NGOHomeScreen());
     });
   }
 }

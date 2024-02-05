@@ -1,14 +1,28 @@
 // import 'package:aid_up/widgets/DonateScreenCard.dart';
 // import 'package:aid_up/widgets/TeachCard.dart';
 import 'package:aid_up/Constants.dart';
+import 'package:aid_up/NGO/Screens/DonationCamp.dart';
+import 'package:aid_up/NGO/Screens/TeachingCamp.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../Volunteer/widgets/DonateScreenCard.dart';
+import 'MoneyDoinationNGO.dart';
 
-class AddressNGO extends StatelessWidget {
-  const AddressNGO({Key? key}) : super(key: key);
+class AddressNGO extends StatefulWidget {
+  bool camp;
+  bool? tech;
+  AddressNGO({Key? key, required this.camp, this.tech = false}) : super(key: key);
 
+  @override
+  State<AddressNGO> createState() => _AddressNGOState();
+}
+
+class _AddressNGOState extends State<AddressNGO> {
+  TextEditingController address = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -49,24 +63,35 @@ class AddressNGO extends StatelessWidget {
                   ),
                 ],
               ),
-              child: TextField(
-                decoration: InputDecoration(
-                    fillColor: Colors.white,
-                    filled: true,
-                    contentPadding: EdgeInsets.symmetric(horizontal: 16.0),
-                    hintText: 'Search address',
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                        borderSide: BorderSide(color: Colors.white)),
-                    focusColor: Colors.white,
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                        borderSide: BorderSide(color: Colors.black)),
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                        borderSide: BorderSide(color: Colors.black)),
-                    suffixIcon: Icon(Icons.cancel_outlined),
-                    prefixIcon: Icon(Icons.search)),
+              child: Form(
+                child: TextFormField(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your address';
+                    }
+                    // You can add more complex email validation if needed
+                    return null;
+                  },
+                  key: _formKey,
+                  controller: address,
+                  decoration: InputDecoration(
+                      fillColor: Colors.white,
+                      filled: true,
+                      contentPadding: EdgeInsets.symmetric(horizontal: 16.0),
+                      hintText: 'Search address',
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                          borderSide: BorderSide(color: Colors.white)),
+                      focusColor: Colors.white,
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                          borderSide: BorderSide(color: Colors.black)),
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                          borderSide: BorderSide(color: Colors.black)),
+                      suffixIcon: Icon(Icons.cancel_outlined),
+                      prefixIcon: Icon(Icons.search)),
+                ),
               ),
             ),
             SizedBox(
@@ -93,22 +118,49 @@ class AddressNGO extends StatelessWidget {
             SizedBox(
               height: height * 0.02,
             ),
-            addressCard(height, width),
-            addressCard(height, width),
-            addressCard(height, width),
-            Expanded(child: SizedBox()),
-            Container(
-              alignment: Alignment.center,
-              width: width,
+            Expanded(
               child: Container(
-                width: width * 0.4,
-                height: height * 0.05,
+                child: ListView(
+                  children: [
+                    addressCard(height, width),
+                    addressCard(height, width),
+                    addressCard(height, width),
+                  ],
+                ),
+              ),
+            ),
+            // Expanded(child: SizedBox()),
+            InkWell(
+              onTap: () {
+                if (address.text.isNotEmpty) {
+                  if (widget.tech!) {
+                    Get.to(TeachingCamp(
+                      address: address.text,
+                    ));
+                  } else if (widget.camp) {
+                    Get.to(DonationCamp(
+                      address: address.text,
+                    ));
+                  } else {
+                    Get.to(MoneyDinationCamp(
+                      address: address.text,
+                    ));
+                  }
+                }
+              },
+              child: Container(
                 alignment: Alignment.center,
-                decoration:
-                    BoxDecoration(color: blueColor, borderRadius: BorderRadius.circular(32)),
-                child: Text(
-                  "Post",
-                  style: GoogleFonts.dmSans(fontSize: height * 0.022, color: Colors.white),
+                width: width,
+                child: Container(
+                  width: width * 0.4,
+                  height: height * 0.05,
+                  alignment: Alignment.center,
+                  decoration:
+                      BoxDecoration(color: blueColor, borderRadius: BorderRadius.circular(32)),
+                  child: Text(
+                    "Next",
+                    style: GoogleFonts.dmSans(fontSize: height * 0.022, color: Colors.white),
+                  ),
                 ),
               ),
             ),

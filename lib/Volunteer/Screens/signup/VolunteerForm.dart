@@ -1,4 +1,5 @@
 // import 'package:aid_up/Screens/signup/OTPScreen.dart';
+import 'package:aid_up/Volunteer/Screens/HomeScreen.dart';
 import 'package:aid_up/controller/obsData.dart';
 import 'package:aid_up/model/UserModel.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,7 @@ class _VoulnteerFormState extends State<VoulnteerForm> {
   TextEditingController _dobController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _repeatPasswordController = TextEditingController();
+  TextEditingController _name = TextEditingController();
   bool _obscurePassword = true;
   bool _obscureRepeatPassword = true;
   final controller = Get.put(ObsData());
@@ -40,6 +42,33 @@ class _VoulnteerFormState extends State<VoulnteerForm> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Text(
+                  "Name",
+                  style: GoogleFonts.dmSans(fontSize: height * 0.021, fontWeight: FontWeight.w600),
+                ),
+                TextFormField(
+                  controller: _name,
+                  decoration: InputDecoration(
+                    // labelText: 'Email',
+                    hintText: 'Eg. Nitish..',
+                    hintStyle: GoogleFonts.dmSans(fontSize: height * 0.017),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Color(0xff1D3050)),
+                    ),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Color(0xff1D3050)),
+                    ),
+                  ),
+                  keyboardType: TextInputType.emailAddress,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your name';
+                    }
+                    // You can add more complex email validation if needed
+                    return null;
+                  },
+                ),
+                SizedBox(height: height * 0.02),
                 Text(
                   "Email",
                   style: GoogleFonts.dmSans(fontSize: height * 0.021, fontWeight: FontWeight.w600),
@@ -204,14 +233,16 @@ class _VoulnteerFormState extends State<VoulnteerForm> {
                   alignment: Alignment.center,
                   child: InkWell(
                     onTap: () {
+                      Get.to(HomeScreen());
                       // if (_formKey.currentState?.validate() ?? false) {
                       // Form is valid, perform your registration logic here
                       // For example, you can print the values for demonstration
                       UserModel userModel = UserModel.fromJson({
+                        "name": _name.text,
                         "email": _emailController.text,
                         "phone": _phoneNumberController.text,
                         "dob": _dobController.text,
-                        "password": _passwordController.text
+                        "password": _passwordController.text,
                       });
                       print('Email: ${_emailController.text}');
                       print('Phone Number: ${_phoneNumberController.text}');

@@ -9,11 +9,12 @@ import '../../Volunteer/widgets/IconWithText.dart';
 // import '../Constants.dart';
 // import 'IconWithText.dart';
 
-Widget NGOHomeCard(double height, double width, String pic) {
+Widget NGOHomeCard(double height, double width, String pic, String title, String desc) {
   return Padding(
-    padding: const EdgeInsets.all(8.0),
+    padding: EdgeInsets.only(bottom: height * 0.02),
     child: Container(
-      // height: height * 0.25,
+      height: height * 0.2,
+      alignment: Alignment.center,
       // width: width,
       decoration: BoxDecoration(
           color: Colors.white,
@@ -27,21 +28,24 @@ Widget NGOHomeCard(double height, double width, String pic) {
               width: width * 0.05,
             ),
             Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
                   height: height * 0.02,
                 ),
                 Text(
-                  "Donation Camp",
+                  title,
                   style: GoogleFonts.dmSans(fontWeight: FontWeight.w600, fontSize: height * 0.024),
+                ),
+                SizedBox(
+                  height: height * 0.01,
                 ),
                 Container(
                   width: width * 0.5,
                   child: Expanded(
                     child: Text(
-                      "Organize donation camp for Books, clothes and money",
+                      desc,
                       style:
                           GoogleFonts.dmSans(fontWeight: FontWeight.w400, fontSize: height * 0.02),
                     ),

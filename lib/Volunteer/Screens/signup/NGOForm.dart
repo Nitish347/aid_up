@@ -1,7 +1,12 @@
+import 'package:aid_up/Volunteer/Screens/signup/OTPScreen.dart';
+import 'package:aid_up/model/NgoModel.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../Constants.dart';
+import 'OTPScreen2.dart';
 
 // import '../../Constants.dart';
 
@@ -44,7 +49,7 @@ class _NGOFormState extends State<NGOForm> {
                   controller: _NGOName,
                   decoration: InputDecoration(
                     // labelText: 'Email',
-                    hintText: 'Eg. xyz123@gmail.com',
+                    hintText: 'Eg. xyz',
                     hintStyle: GoogleFonts.dmSans(fontSize: height * 0.017),
                     focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: Color(0xff1D3050)),
@@ -56,7 +61,7 @@ class _NGOFormState extends State<NGOForm> {
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter your email';
+                      return 'Please enter your NGO name';
                     }
                     // You can add more complex email validation if needed
                     return null;
@@ -71,7 +76,7 @@ class _NGOFormState extends State<NGOForm> {
                   controller: _NGOAddress,
                   decoration: InputDecoration(
                     // labelText: 'Email',
-                    hintText: 'Eg. xyz123@gmail.com',
+                    hintText: 'Eg. Ghaziabad',
                     hintStyle: GoogleFonts.dmSans(fontSize: height * 0.017),
                     focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: Color(0xff1D3050)),
@@ -83,7 +88,7 @@ class _NGOFormState extends State<NGOForm> {
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter your email';
+                      return 'Please enter your address';
                     }
                     // You can add more complex email validation if needed
                     return null;
@@ -229,6 +234,14 @@ class _NGOFormState extends State<NGOForm> {
                       if (_formKey.currentState?.validate() ?? false) {
                         // Form is valid, perform your registration logic here
                         // For example, you can print the values for demonstration
+                        NgoModel ngoModel = NgoModel.fromJson({
+                          "name": _NGOName.text,
+                          "address": _NGOAddress.text,
+                          "email": _emailController.text,
+                          "phone": _phoneNumberController.text,
+                          "password": _passwordController.text,
+                        });
+                        Get.to(PinScreen2(userModel: ngoModel));
                         print('Email: ${_emailController.text}');
                         print('Phone Number: ${_phoneNumberController.text}');
                         print('Date of Birth: ${_dobController.text}');

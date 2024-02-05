@@ -1,45 +1,41 @@
 // To parse this JSON data, do
 //
-//     final userModel = userModelFromJson(jsonString);
+//     final ngoModel = ngoModelFromJson(jsonString);
 
 import 'dart:convert';
 
-UserModel userModelFromJson(String str) => UserModel.fromJson(json.decode(str));
+NgoModel ngoModelFromJson(String str) => NgoModel.fromJson(json.decode(str));
 
-String userModelToJson(UserModel data) => json.encode(data.toJson());
+String ngoModelToJson(NgoModel data) => json.encode(data.toJson());
 
-class UserModel {
+class NgoModel {
   String? name;
-  String? dob;
+  String? address;
   String? email;
   String? phone;
   String? password;
-  String? uid;
 
-  UserModel({
+  NgoModel({
     this.name,
-    this.dob,
+    this.address,
     this.email,
     this.phone,
     this.password,
-    this.uid,
   });
 
-  factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
+  factory NgoModel.fromJson(Map<String, dynamic> json) => NgoModel(
         name: json["name"],
-        dob: json["dob"],
+        address: json["address"],
         email: json["email"],
         phone: json["phone"],
         password: json["password"],
-        uid: json["uid"],
       );
 
   Map<String, dynamic> toJson() => {
         "name": name,
-        "dob": dob,
+        "address": address,
         "email": email,
         "phone": phone,
         "password": password,
-        "uid": uid,
       };
 }
