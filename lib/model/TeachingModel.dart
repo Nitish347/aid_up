@@ -18,6 +18,7 @@ class TeachiingNgoModel {
   String? time;
   String? desc;
   List<dynamic>? rules;
+  String? uid;
 
   TeachiingNgoModel({
     this.name,
@@ -28,6 +29,7 @@ class TeachiingNgoModel {
     this.time,
     this.desc,
     this.rules,
+    this.uid,
   });
 
   factory TeachiingNgoModel.fromJson(Map<String, dynamic> json) => TeachiingNgoModel(
@@ -39,6 +41,7 @@ class TeachiingNgoModel {
         time: json["time"],
         desc: json["desc"],
         rules: json["rules"] == null ? [] : List<dynamic>.from(json["rules"]!.map((x) => x)),
+        uid: json["uid"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -50,5 +53,6 @@ class TeachiingNgoModel {
         "time": time,
         "desc": desc,
         "rules": rules == null ? [] : List<dynamic>.from(rules!.map((x) => x)),
+        "uid": uid,
       };
 }

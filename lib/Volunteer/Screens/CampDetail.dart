@@ -9,7 +9,9 @@ import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
+import '../../Firestore/Volunteer/FirebaseVUser.dart';
 import '../widgets/DescriptionText.dart';
 import '../widgets/HeadingText.dart';
 import '../widgets/IconWithText.dart';
@@ -24,6 +26,7 @@ class CampDetailScreen extends StatefulWidget {
 class _CampDetailScreenState extends State<CampDetailScreen> {
   ScrollController _scrollController = ScrollController();
   bool _isScrolledUp = false;
+  bool _loading = false;
   List _responsibilty = [
     "Prepare and Deliver",
     "Lessons Evaluate student progress through quizzes, tests, and assignments.",
@@ -384,18 +387,50 @@ class _CampDetailScreenState extends State<CampDetailScreen> {
                   SizedBox(
                     height: height * 0.05,
                   ),
-                  Container(
-                    alignment: Alignment.center,
-                    width: width,
+                  InkWell(
+                    onTap: () async {
+                      setState(() {
+                        _loading = true;
+                      });
+                      DonationNgoModel model = DonationNgoModel.fromJson({
+                        "name": widget.model.name,
+                        "phone": widget.model.phone,
+                        "address": widget.model.address,
+                        "donation_type": [
+                          {
+                            "clothes": _clothesChecked,
+                            "books": _booksAndStationeryChecked,
+                            "food": _foodChecked,
+                            "money": _money,
+                            "medical": _medical
+                          }
+                        ],
+                        "date": widget.model.date,
+                        "time": widget.model.time,
+                        "desc": widget.model.desc,
+                        "rules": widget.model.rules
+                      });
+                      await FirestoreVData.bookDonationCamp(context, model);
+                      setState(() {
+                        _loading = false;
+                      });
+                    },
                     child: Container(
-                      width: width * 0.4,
-                      height: height * 0.05,
                       alignment: Alignment.center,
-                      decoration:
-                          BoxDecoration(color: blueColor, borderRadius: BorderRadius.circular(32)),
-                      child: Text(
-                        "Book",
-                        style: GoogleFonts.dmSans(fontSize: height * 0.022, color: Colors.white),
+                      width: width,
+                      child: Container(
+                        width: width * 0.4,
+                        height: height * 0.05,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                            color: blueColor, borderRadius: BorderRadius.circular(32)),
+                        child: _loading
+                            ? LoadingAnimationWidget.waveDots(color: Colors.white, size: 50)
+                            : Text(
+                                "Book",
+                                style: GoogleFonts.dmSans(
+                                    fontSize: height * 0.022, color: Colors.white),
+                              ),
                       ),
                     ),
                   ),

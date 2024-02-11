@@ -6,12 +6,11 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../Constants.dart';
 import 'IconWithText.dart';
 
-Widget TeachCard(double height, double width) {
+Widget TeachCard(double height, double width, String NGO) {
   return Padding(
     padding: const EdgeInsets.all(8.0),
     child: Container(
-      height: height * 0.25,
-      // width: width * 0.45,
+      width: width,
       decoration: BoxDecoration(
           color: Colors.white,
           boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.25), blurRadius: 8)],
@@ -32,7 +31,7 @@ Widget TeachCard(double height, double width) {
                   ),
             ),
             SizedBox(
-              width: width * 0.05,
+              width: width * 0.02,
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -42,8 +41,8 @@ Widget TeachCard(double height, double width) {
                   height: height * 0.02,
                 ),
                 Text(
-                  "Pankh NGO",
-                  style: GoogleFonts.dmSans(fontWeight: FontWeight.w600, fontSize: height * 0.024),
+                  NGO,
+                  style: GoogleFonts.dmSans(fontWeight: FontWeight.w600, fontSize: height * 0.025),
                 ),
                 SizedBox(
                   height: height * 0.015,
@@ -66,7 +65,7 @@ Widget TeachCard(double height, double width) {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      width: width * 0.4,
+                      width: width * 0.35,
                       height: height * 0.04,
                       alignment: Alignment.center,
                       decoration:

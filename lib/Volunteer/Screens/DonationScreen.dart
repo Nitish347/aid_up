@@ -1,5 +1,6 @@
 // import 'package:aid_up/widgets/DonateScreenCard.dart';
 // import 'package:aid_up/widgets/TeachCard.dart';
+import 'package:aid_up/controller/obsData.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -10,6 +11,7 @@ import 'package:page_view_dot_indicator/page_view_dot_indicator.dart';
 import '../widgets/DonateScreenCard.dart';
 import '../widgets/TeachCard.dart';
 import 'DonateMoneyScreen.dart';
+import 'donationListScreen.dart';
 
 class DonationScreen extends StatefulWidget {
   const DonationScreen({Key? key}) : super(key: key);
@@ -25,6 +27,7 @@ class _DonationScreenState extends State<DonationScreen> {
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
+    final controller = Get.put(ObsData());
 
     return SafeArea(
         child: Scaffold(
@@ -93,8 +96,9 @@ class _DonationScreenState extends State<DonationScreen> {
                   child: ListView(children: [
                 CarouselSlider(
                   options: CarouselOptions(
-                      height: height * 0.25,
+                      height: height * 0.22,
                       enableInfiniteScroll: true,
+                      autoPlay: true,
                       onScrolled: (index) {
                         setState(() {
                           // print(index);
@@ -104,13 +108,13 @@ class _DonationScreenState extends State<DonationScreen> {
                         print(index);
                         print(reason);
                         setState(() {
-                          ind = index;
+                          // ind = index;
                         });
                       }),
-                  items: [1, 2, 3, 4, 5].map((i) {
+                  items: controller.donationList.map((i) {
                     return Builder(
                       builder: (BuildContext context) {
-                        return TeachCard(height * 0.8, width * 0.7);
+                        return InkWell(child: TeachCard(height * 0.8, width * 0.7, i.name!));
                       },
                     );
                   }).toList(),
@@ -119,21 +123,26 @@ class _DonationScreenState extends State<DonationScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(),
-                    Container(
-                      width: width * 0.2,
-                      child: PageViewDotIndicator(
-                        currentItem: ind,
-                        count: 5,
-                        unselectedColor: Colors.black26,
-                        selectedColor: Colors.black,
-                        size: Size(width * 0.015, width * 0.015),
-                        unselectedSize: Size(width * 0.01, width * 0.01),
-                        duration: const Duration(milliseconds: 200),
+                    // Container(
+                    //   width: width * 0.2,
+                    //   child: PageViewDotIndicator(
+                    //     currentItem: ind,
+                    //     count: controller.donationList.length - 1,
+                    //     unselectedColor: Colors.black26,
+                    //     selectedColor: Colors.black,
+                    //     size: Size(width * 0.015, width * 0.015),
+                    //     unselectedSize: Size(width * 0.01, width * 0.01),
+                    //     duration: const Duration(milliseconds: 200),
+                    //   ),
+                    // ),
+                    InkWell(
+                      onTap: () {
+                        Get.to(DonationListScreen());
+                      },
+                      child: Text(
+                        "View All",
+                        style: GoogleFonts.dmSans(decoration: TextDecoration.underline),
                       ),
-                    ),
-                    Text(
-                      "View All",
-                      style: GoogleFonts.dmSans(decoration: TextDecoration.underline),
                     )
                   ],
                 ),

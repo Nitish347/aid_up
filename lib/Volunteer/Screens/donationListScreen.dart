@@ -8,8 +8,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../widgets/TeachCard2.dart';
 
-class TeachScreen extends StatelessWidget {
-  const TeachScreen({Key? key}) : super(key: key);
+class DonationListScreen extends StatelessWidget {
+  const DonationListScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class TeachScreen extends StatelessWidget {
               size: height * 0.04,
             ),
             Text(
-              "Teach",
+              "Donate",
               style: GoogleFonts.dmSans(
                   fontSize: height * 0.035, fontWeight: FontWeight.w600, color: Colors.black),
             ),
@@ -100,14 +100,14 @@ class TeachScreen extends StatelessWidget {
             Expanded(
               child: Container(
                   child: ListView(
-                children: List.generate(controller.teachingList.length, (index) {
-                  return TeachCard2(
+                children: List.generate(controller.donationList.length, (index) {
+                  return TeachCard3(
                     height,
                     width,
-                    controller.teachingList[index],
-                    controller.teachingList![index].name!,
-                    controller.teachingList![index].address!,
-                    controller.teachingList![index].time!,
+                    controller.donationList[index],
+                    controller.donationList![index].name!,
+                    controller.donationList![index].address!,
+                    controller.donationList![index].time!,
                   );
                 }),
               )),

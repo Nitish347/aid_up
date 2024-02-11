@@ -18,6 +18,7 @@ class DonationNgoModel {
   String? time;
   String? desc;
   List<dynamic>? rules;
+  String? uid;
 
   DonationNgoModel({
     this.name,
@@ -28,6 +29,7 @@ class DonationNgoModel {
     this.time,
     this.desc,
     this.rules,
+    this.uid,
   });
 
   factory DonationNgoModel.fromJson(Map<String, dynamic> json) => DonationNgoModel(
@@ -41,6 +43,7 @@ class DonationNgoModel {
         time: json["time"],
         desc: json["desc"],
         rules: json["rules"] == null ? [] : List<dynamic>.from(json["rules"]!.map((x) => x)),
+        uid: json["uid"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -53,5 +56,6 @@ class DonationNgoModel {
         "time": time,
         "desc": desc,
         "rules": rules == null ? [] : List<dynamic>.from(rules!.map((x) => x)),
+        "uid": uid,
       };
 }

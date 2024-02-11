@@ -1,4 +1,5 @@
 import 'package:aid_up/Constants.dart';
+import 'package:aid_up/Firestore/Volunteer/FirebaseVUser.dart';
 import 'package:aid_up/model/DonationNGO.dart';
 import 'package:aid_up/model/TeachingModel.dart';
 // import 'package:aid_up/widgets/DescriptionText.dart';
@@ -10,6 +11,7 @@ import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../widgets/DescriptionText.dart';
 import '../widgets/HeadingText.dart';
@@ -23,6 +25,7 @@ class TeachCampDetailScreen extends StatefulWidget {
 }
 
 class _TeachCampDetailScreenState extends State<TeachCampDetailScreen> {
+  bool _loading = false;
   ScrollController _scrollController = ScrollController();
   bool _isScrolledUp = false;
   List _responsibilty = [
@@ -237,18 +240,32 @@ class _TeachCampDetailScreenState extends State<TeachCampDetailScreen> {
                   SizedBox(
                     height: height * 0.02,
                   ),
-                  Container(
-                    alignment: Alignment.center,
-                    width: width,
+                  InkWell(
+                    onTap: () async {
+                      setState(() {
+                        _loading = true;
+                      });
+                      await FirestoreVData.bookTeach(context, widget.model);
+                      setState(() {
+                        _loading = false;
+                      });
+                    },
                     child: Container(
-                      width: width * 0.4,
-                      height: height * 0.05,
                       alignment: Alignment.center,
-                      decoration:
-                          BoxDecoration(color: blueColor, borderRadius: BorderRadius.circular(32)),
-                      child: Text(
-                        "Book",
-                        style: GoogleFonts.dmSans(fontSize: height * 0.022, color: Colors.white),
+                      width: width,
+                      child: Container(
+                        width: width * 0.4,
+                        height: height * 0.05,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                            color: blueColor, borderRadius: BorderRadius.circular(32)),
+                        child: _loading
+                            ? LoadingAnimationWidget.waveDots(color: Colors.white, size: 50)
+                            : Text(
+                                "Book",
+                                style: GoogleFonts.dmSans(
+                                    fontSize: height * 0.022, color: Colors.white),
+                              ),
                       ),
                     ),
                   ),

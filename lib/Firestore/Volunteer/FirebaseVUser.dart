@@ -1,6 +1,7 @@
 import 'package:aid_up/controller/obsData.dart';
 import 'package:aid_up/model/DonationNGO.dart';
 import 'package:aid_up/model/TeachingModel.dart';
+import 'package:aid_up/model/UserModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -19,46 +20,17 @@ class FirestoreVData {
     var snp = await FirebaseFirestore.instance.collection("Users").doc(uid).get();
     print(snp.data().toString());
     controller.userData.value = snp.data()!;
+    UserModel user = UserModel.fromJson({
+      "name": snp.data()!['name'],
+      "dob": snp.data()!['dob'],
+      "email": snp.data()!['email'],
+      "phone": snp.data()!['phone'],
+      "password": snp.data()!['password'],
+      "uid": snp.data()!['uid'],
+    });
+    controller.userModel.value = user;
     controller.uid.value = uid;
-    print(controller.userData.value.toString());
-
-    // String hsptlName = snp.data()!["HospitalName"];
-    // print(hsptlName);
-    // print(snp.data()!["name"]);
-    // User _user = User.fromJson(snp.data()!);
-    // provider.updateUser(_user);
-    // print(_user.hospitalName);
-  }
-
-  //***************** Hospital Data
-  static hospitalData(BuildContext context, String uid) async {
-    // var provider = Provider.of<UserProvider>(context, listen: false);
-    print("fetching");
-    var snp = await FirebaseFirestore.instance.collection("Users").doc(uid).get();
-    String hsptlName = snp.data()!["HospitalName"];
-    var snap = await FirebaseFirestore.instance.collection('HospitalNames').doc(hsptlName).get();
-    // HospitalModel hospitalModel = HospitalModel.fromJson(snap.data()!);
-    // provider.updateHopital(hospitalModel);
-  }
-
-  //******************** Hospital Names List
-  static Future<bool> post(
-      BuildContext context, DonationNgoModel userModel, String uid, String path) async {
-    final controller = Get.put(ObsData());
-    try {
-      String postId = Uuid().v1();
-      await FirebaseFirestore.instance.collection(path).doc(postId).set(userModel.toJson());
-      await FirebaseFirestore.instance
-          .collection("NGO")
-          .doc(uid)
-          .collection(path)
-          .doc(postId)
-          .set(userModel.toJson());
-      return true;
-    } catch (e) {
-      print(e.toString());
-      return false;
-    }
+    print(controller.userData.toString());
   }
 
   static Future<bool> postMoney(
@@ -86,24 +58,61 @@ class FirestoreVData {
     }
   }
 
-  static Future<bool> postTeach(
+  static Future<bool> bookTeach(
     BuildContext context,
-    TeachiingNgoModel userModel,
-    String uid,
+    TeachiingNgoModel teachiingNgoModel,
   ) async {
     final controller = Get.put(ObsData());
+    Map<String, dynamic> mp = {
+      "book": teachiingNgoModel.toJson(),
+      "user": controller.userModel.value.toJson()
+    };
+
     try {
       String postId = Uuid().v1();
       await FirebaseFirestore.instance
-          .collection("TeachingCamp")
+          .collection("NGO")
+          .doc(teachiingNgoModel.uid)
+          .collection("BookedTeach")
           .doc(postId)
-          .set(userModel.toJson());
+          .set(mp);
+      await FirebaseFirestore.instance
+          .collection("Users")
+          .doc(controller.userModel.value.uid)
+          .collection("BookedTeach")
+          .doc(postId)
+          .set(teachiingNgoModel.toJson());
+      return true;
+    } catch (e) {
+      print(e.toString());
+      return false;
+    }
+  }
+
+  static Future<bool> bookDonationCamp(
+    BuildContext context,
+    DonationNgoModel teachiingNgoModel,
+  ) async {
+    final controller = Get.put(ObsData());
+    Map<String, dynamic> mp = {
+      "book": teachiingNgoModel.toJson(),
+      "user": controller.userModel.value.toJson()
+    };
+
+    try {
+      String postId = Uuid().v1();
       await FirebaseFirestore.instance
           .collection("NGO")
-          .doc(uid)
-          .collection("TeachingCamp")
+          .doc(teachiingNgoModel.uid)
+          .collection("BookedDonationCamp")
           .doc(postId)
-          .set(userModel.toJson());
+          .set(mp);
+      await FirebaseFirestore.instance
+          .collection("Users")
+          .doc(controller.userModel.value.uid)
+          .collection("BookedDonationCamp")
+          .doc(postId)
+          .set(teachiingNgoModel.toJson());
       return true;
     } catch (e) {
       print(e.toString());

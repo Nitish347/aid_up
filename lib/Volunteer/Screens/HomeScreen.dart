@@ -1,9 +1,11 @@
 import 'dart:developer';
 
 import 'package:aid_up/Constants.dart';
+import 'package:aid_up/Volunteer/Screens/Profile.dart';
 import 'package:aid_up/controller/obsData.dart';
 import 'package:aid_up/model/DonationNGO.dart';
 import 'package:aid_up/model/TeachingModel.dart';
+import 'package:aid_up/model/UserModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:aid_up/Screens/DonationScreen.dart';
@@ -37,8 +39,10 @@ class _HomeScreenState extends State<HomeScreen> {
     loading();
   }
 
+  final controller = Get.put(ObsData());
   bool _loading = false;
   String name = "";
+  late UserModel userModel;
   void loading() async {
     setState(() {
       _loading = true;
@@ -49,7 +53,6 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  final controller = Get.put(ObsData());
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -90,8 +93,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         )
                       ],
                     ),
-                    CircleAvatar(
-                      backgroundColor: blueColor,
+                    InkWell(
+                      onTap: () {
+                        Get.to(ProfileScreen());
+                      },
+                      child: CircleAvatar(
+                        backgroundColor: blueColor,
+                      ),
                     )
                   ],
                 ),
@@ -144,11 +152,35 @@ class _HomeScreenState extends State<HomeScreen> {
                       future: FirebaseFirestore.instance.collection("TeachingCamp").get(),
                       builder: (context, snapshot) {
                         // log(snapshot.data!.docs[0]["name"].toString());
+                        for (int i = 0; i < snapshot.data!.docs.length; i++) {}
                         if (!snapshot.hasData) {
                           return Center(
                             child: LoadingAnimationWidget.waveDots(color: orangeColor, size: 50),
                           );
                         } else {
+                          controller.teachingList.clear();
+                          for (int i = 0; i < snapshot.data!.docs.length; i++) {
+                            String name = snapshot.data!.docs[i]["name"];
+                            String phone = snapshot.data!.docs[i]["phone"];
+                            String address = snapshot.data!.docs[i]["address"];
+                            // String donationType = snapshot.data!.docs[index]["donation_type"];
+                            String time = snapshot.data!.docs[i]["time"];
+                            String date = snapshot.data!.docs[i]["date"];
+                            String desc = snapshot.data!.docs[i]["desc"];
+                            List rules = snapshot.data!.docs[i]["rules"];
+                            String subject = snapshot.data!.docs[i]["subject"];
+                            TeachiingNgoModel model = TeachiingNgoModel.fromJson({
+                              "name": name,
+                              "phone": phone,
+                              "subject": subject,
+                              "address": address,
+                              "date": date,
+                              "time": time,
+                              "desc": desc,
+                              "rules": rules,
+                            });
+                            controller.teachingList.add(model);
+                          }
                           return ListView(
                             scrollDirection: Axis.horizontal,
                             children: List.generate(snapshot.data!.docs.length, (index) {
@@ -161,6 +193,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               String desc = snapshot.data!.docs[index]["desc"];
                               List rules = snapshot.data!.docs[index]["rules"];
                               String subject = snapshot.data!.docs[index]["subject"];
+                              String uid = snapshot.data!.docs[index]["uid"];
+
                               TeachiingNgoModel model = TeachiingNgoModel.fromJson({
                                 "name": name,
                                 "phone": phone,
@@ -170,6 +204,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 "time": time,
                                 "desc": desc,
                                 "rules": rules,
+                                "uid": uid
                               });
 
                               return TeachingCard(
@@ -197,6 +232,28 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: LoadingAnimationWidget.waveDots(color: orangeColor, size: 50),
                           );
                         } else {
+                          controller.donationList.clear();
+                          for (int index = 0; index < snapshot.data!.docs.length; index++) {
+                            String name = snapshot.data!.docs[index]["name"];
+                            String phone = snapshot.data!.docs[index]["phone"];
+                            String address = snapshot.data!.docs[index]["address"];
+                            List donationType = snapshot.data!.docs[index]["donation_type"];
+                            String time = snapshot.data!.docs[index]["time"];
+                            String date = snapshot.data!.docs[index]["date"];
+                            String desc = snapshot.data!.docs[index]["desc"];
+                            List rules = snapshot.data!.docs[index]["rules"];
+                            DonationNgoModel model = DonationNgoModel.fromJson({
+                              "name": name,
+                              "phone": phone,
+                              "address": address,
+                              "donation_type": donationType,
+                              "date": date,
+                              "time": time,
+                              "desc": desc,
+                              "rules": rules
+                            });
+                            controller.donationList.add(model);
+                          }
                           return ListView(
                             scrollDirection: Axis.horizontal,
                             children: List.generate(snapshot.data!.docs.length, (index) {
@@ -208,6 +265,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               String date = snapshot.data!.docs[index]["date"];
                               String desc = snapshot.data!.docs[index]["desc"];
                               List rules = snapshot.data!.docs[index]["rules"];
+                              String uid = snapshot.data!.docs[index]["uid"];
 
                               // String subject = snapshot.data!.docs[index]["subject"];
                               DonationNgoModel model = DonationNgoModel.fromJson({
@@ -218,7 +276,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 "date": date,
                                 "time": time,
                                 "desc": desc,
-                                "rules": rules
+                                "rules": rules,
+                                "uid": uid
                               });
 
                               return DonationCard(

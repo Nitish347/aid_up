@@ -40,7 +40,7 @@ Widget DonateScreenCard(double height, double width, String text, String title, 
               children: [
                 Text(
                   "Help a child get surgery",
-                  style: GoogleFonts.dmSans(fontWeight: FontWeight.w600, fontSize: height * 0.02),
+                  style: GoogleFonts.dmSans(fontWeight: FontWeight.w600, fontSize: width * 0.04),
                 ),
                 SizedBox(
                   width: width * 0.01,
@@ -48,7 +48,7 @@ Widget DonateScreenCard(double height, double width, String text, String title, 
                 Text(
                   "by Awaaz NGO",
                   style: GoogleFonts.dmSans(
-                      fontWeight: FontWeight.w300, fontSize: height * 0.018, color: Colors.grey),
+                      fontWeight: FontWeight.w300, fontSize: width * 0.025, color: Colors.grey),
                 ),
               ],
             ),
@@ -58,7 +58,7 @@ Widget DonateScreenCard(double height, double width, String text, String title, 
             Row(
               children: [
                 Text(
-                  "Rs 28000",
+                  "Rs 28000 ",
                   style: GoogleFonts.dmSans(
                       fontWeight: FontWeight.w600, fontSize: height * 0.018, color: orangeColor),
                 ),
