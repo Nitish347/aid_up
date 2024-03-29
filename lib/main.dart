@@ -1,21 +1,33 @@
+import 'dart:developer';
+
 import 'package:aid_up/Firestore/FirestoreData.dart';
 import 'package:aid_up/NGO/Screens/DonationCamp.dart';
+import 'package:aid_up/NGO/Screens/NGOHome.dart';
+import 'package:aid_up/Services/token.dart';
 import 'package:aid_up/Volunteer/Screens/HomeScreen.dart';
+import 'package:aid_up/Volunteer/Screens/signup/CreateAccount.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
+import 'Volunteer/Screens/signup/login/login.dart';
 
-import 'NGO/Screens/Address.dart';
-import 'NGO/Screens/MoneyDoinationNGO.dart';
-import 'NGO/Screens/NGOHome.dart';
-import 'NGO/Screens/TeachingCamp.dart';
-import 'Volunteer/Screens/Profile.dart';
-import 'Volunteer/Screens/signup/CreateAccount.dart';
-
+bool ngo = false;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  String? value = await TokenStorage.getToken();
+
+  if (value != null) {
+    log(value);
+    if (value == "ngo") {
+      ngo = true;
+    } else {
+      ngo = false;
+    }
+  }
+
   runApp(const MyApp());
 }
 
@@ -37,17 +49,17 @@ class MyApp extends StatelessWidget {
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.active) {
               if (snapshot.data != null) {
-                FirestoreData.userData(context, FirebaseAuth.instance.currentUser!.uid.toString());
-                return HomeScreen();
+                // await  FirestoreData.userData(context, FirebaseAuth.instance.currentUser!.uid.toString());
+                return ngo ? const NGOHomeScreen() : const HomeScreen();
               } else {
-                return CreateAccount();
+                return const CreateAccount();
               }
             } else if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             } else {
-              return CreateAccount();
+              return const CreateAccount();
             }
           }),
     );

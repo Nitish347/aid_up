@@ -245,7 +245,7 @@ class _MoneyDinationCampState extends State<MoneyDinationCamp> {
   Widget textFieldDesc(double height, double width, String title, String hint,
       TextEditingController controller, bool err) {
     return Container(
-      height: err ? height * 0.3 : height * 0.25,
+      height: err ? height * 0.3 : height * 0.3,
       // color: Colors.red,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

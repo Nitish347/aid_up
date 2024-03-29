@@ -17,6 +17,7 @@ class MoneyNgoModel {
   String? desc;
   String? cause;
   List<dynamic>? rules;
+  String? total;
 
   MoneyNgoModel({
     this.name,
@@ -27,6 +28,7 @@ class MoneyNgoModel {
     this.desc,
     this.cause,
     this.rules,
+    this.total,
   });
 
   factory MoneyNgoModel.fromJson(Map<String, dynamic> json) => MoneyNgoModel(
@@ -38,6 +40,7 @@ class MoneyNgoModel {
         desc: json["desc"],
         cause: json["cause"],
         rules: json["rules"] == null ? [] : List<dynamic>.from(json["rules"]!.map((x) => x)),
+        total: json["total"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -49,5 +52,6 @@ class MoneyNgoModel {
         "desc": desc,
         "cause": cause,
         "rules": rules == null ? [] : List<dynamic>.from(rules!.map((x) => x)),
+        "total": total,
       };
 }

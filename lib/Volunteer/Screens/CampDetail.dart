@@ -235,154 +235,155 @@ class _CampDetailScreenState extends State<CampDetailScreen> {
                   SizedBox(
                     height: height * 0.02,
                   ),
-                  Container(
-                    width: width,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Row(
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Checkbox(
-                              value: _clothesChecked,
-                              checkColor: Colors.white,
-                              activeColor: orangeColor,
-                              onChanged: (value) {
-                                if (widget.model.donationType![0]["clothes"]) {
-                                  setState(() {
-                                    _clothesChecked = value!;
-                                  });
-                                }
-                              },
+                            Row(
+                              children: [
+                                Checkbox(
+                                  value: _clothesChecked,
+                                  checkColor: Colors.white,
+                                  activeColor: orangeColor,
+                                  onChanged: (value) {
+                                    if (widget.model.donationType![0]["clothes"]) {
+                                      setState(() {
+                                        _clothesChecked = value!;
+                                      });
+                                    }
+                                  },
+                                ),
+                                FittedBox(
+                                  child: Text(
+                                    "Clothes",
+                                    style: GoogleFonts.dmSans(
+                                        // fontSize: height * 0.015,
+                                        fontWeight: FontWeight.w400,
+                                        color: widget.model.donationType![0]["clothes"]
+                                            ? Colors.black
+                                            : Colors.grey),
+                                  ),
+                                ),
+                              ],
                             ),
-                            FittedBox(
-                              child: Text(
-                                "Clothes",
-                                style: GoogleFonts.dmSans(
-                                    // fontSize: height * 0.015,
-                                    fontWeight: FontWeight.w400,
-                                    color: widget.model.donationType![0]["clothes"]
-                                        ? Colors.black
-                                        : Colors.grey),
-                              ),
+                            Row(
+                              children: [
+                                Checkbox(
+                                  value: _booksAndStationeryChecked,
+                                  checkColor: Colors.white,
+                                  activeColor: orangeColor,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      if (widget.model.donationType![0]["books"])
+                                        _booksAndStationeryChecked = value!;
+                                    });
+                                  },
+                                ),
+                                FittedBox(
+                                  child: Text(
+                                    "Books & Stationery",
+                                    style: GoogleFonts.dmSans(
+                                        // fontSize: height * 0.02,
+                                        fontWeight: FontWeight.w400,
+                                        color: widget.model.donationType![0]["books"]
+                                            ? Colors.black
+                                            : Colors.grey),
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),
-                        Row(
+                      ),
+                      Container(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Checkbox(
-                              value: _booksAndStationeryChecked,
-                              checkColor: Colors.white,
-                              activeColor: orangeColor,
-                              onChanged: (value) {
-                                setState(() {
-                                  if (widget.model.donationType![0]["books"])
-                                    _booksAndStationeryChecked = value!;
-                                });
-                              },
+                            Row(
+                              children: [
+                                Checkbox(
+                                  value: _medical,
+                                  checkColor: Colors.white,
+                                  activeColor: orangeColor,
+                                  onChanged: (value) {
+                                    if (widget.model.donationType![0]["medical"])
+                                      setState(() {
+                                        _medical = value!;
+                                      });
+                                  },
+                                ),
+                                FittedBox(
+                                  child: Text(
+                                    "Medical",
+                                    style: GoogleFonts.dmSans(
+                                        // fontSize: height * 0.015,
+                                        fontWeight: FontWeight.w400,
+                                        color: widget.model.donationType![0]["medical"]
+                                            ? Colors.black
+                                            : Colors.grey),
+                                  ),
+                                ),
+                              ],
                             ),
-                            FittedBox(
-                              child: Text(
-                                "Books & Stationery",
-                                style: GoogleFonts.dmSans(
-                                    // fontSize: height * 0.02,
-                                    fontWeight: FontWeight.w400,
-                                    color: widget.model.donationType![0]["books"]
-                                        ? Colors.black
-                                        : Colors.grey),
-                              ),
+                            Row(
+                              children: [
+                                Checkbox(
+                                  value: _money,
+                                  checkColor: Colors.white,
+                                  activeColor: orangeColor,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      if (widget.model.donationType![0]["money"]) _money = value!;
+                                    });
+                                  },
+                                ),
+                                FittedBox(
+                                  child: Text(
+                                    "Money",
+                                    style: GoogleFonts.dmSans(
+                                        // fontSize: height * 0.02,
+                                        fontWeight: FontWeight.w400,
+                                        color: widget.model.donationType![0]["money"]
+                                            ? Colors.black
+                                            : Colors.grey),
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),
-                        Row(
-                          children: [
-                            Checkbox(
-                              value: _foodChecked,
-                              checkColor: Colors.white,
-                              activeColor: orangeColor,
-                              onChanged: (value) {
-                                if (widget.model.donationType![0]["food"])
-                                  setState(() {
-                                    _foodChecked = value!;
-                                  });
-                              },
-                            ),
-                            FittedBox(
-                              child: Text(
-                                "Food",
-                                style: GoogleFonts.dmSans(
-                                    // fontSize: height * 0.02,
-                                    fontWeight: FontWeight.w400,
-                                    color: widget.model.donationType![0]["food"]
-                                        ? Colors.black
-                                        : Colors.grey),
-                              ),
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                  Container(
-                    width: width,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Row(
-                          children: [
-                            Checkbox(
-                              value: _medical,
-                              checkColor: Colors.white,
-                              activeColor: orangeColor,
-                              onChanged: (value) {
-                                if (widget.model.donationType![0]["medical"])
-                                  setState(() {
-                                    _medical = value!;
-                                  });
-                              },
-                            ),
-                            FittedBox(
-                              child: Text(
-                                "Medical",
-                                style: GoogleFonts.dmSans(
-                                    // fontSize: height * 0.015,
-                                    fontWeight: FontWeight.w400,
-                                    color: widget.model.donationType![0]["medical"]
-                                        ? Colors.black
-                                        : Colors.grey),
-                              ),
-                            ),
-                          ],
+                  Row(
+                    children: [
+                      Checkbox(
+                        value: _foodChecked,
+                        checkColor: Colors.white,
+                        activeColor: orangeColor,
+                        onChanged: (value) {
+                          if (widget.model.donationType![0]["food"])
+                            setState(() {
+                              _foodChecked = value!;
+                            });
+                        },
+                      ),
+                      FittedBox(
+                        child: Text(
+                          "Food",
+                          style: GoogleFonts.dmSans(
+                              // fontSize: height * 0.02,
+                              fontWeight: FontWeight.w400,
+                              color: widget.model.donationType![0]["food"]
+                                  ? Colors.black
+                                  : Colors.grey),
                         ),
-                        Row(
-                          children: [
-                            Checkbox(
-                              value: _money,
-                              checkColor: Colors.white,
-                              activeColor: orangeColor,
-                              onChanged: (value) {
-                                setState(() {
-                                  if (widget.model.donationType![0]["money"]) _money = value!;
-                                });
-                              },
-                            ),
-                            FittedBox(
-                              child: Text(
-                                "Money",
-                                style: GoogleFonts.dmSans(
-                                    // fontSize: height * 0.02,
-                                    fontWeight: FontWeight.w400,
-                                    color: widget.model.donationType![0]["money"]
-                                        ? Colors.black
-                                        : Colors.grey),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Container(
-                          width: width * 0.37,
-                        )
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                   SizedBox(
                     height: height * 0.05,
@@ -434,6 +435,9 @@ class _CampDetailScreenState extends State<CampDetailScreen> {
                       ),
                     ),
                   ),
+                  SizedBox(
+                    height: height * 0.1,
+                  )
                 ],
               ),
             ),

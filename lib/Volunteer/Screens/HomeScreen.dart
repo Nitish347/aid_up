@@ -8,12 +8,9 @@ import 'package:aid_up/model/TeachingModel.dart';
 import 'package:aid_up/model/UserModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:aid_up/Screens/DonationScreen.dart';
-// import 'package:aid_up/Screens/TeachScreen.dart';
-// import 'package:aid_up/widgets/HomeSquareCard.dart';
-// import 'package:aid_up/widgets/TeachingCard.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -21,6 +18,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../Firestore/FirestoreData.dart';
 import '../../Firestore/Volunteer/FirebaseVUser.dart';
+import '../../Services/token.dart';
 import '../widgets/HomeSquareCard.dart';
 import '../widgets/TeachingCard.dart';
 import 'DonationScreen.dart';
@@ -34,8 +32,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  @override
   void initState() {
+    super.initState();
     // TODO: implement initState
+
     loading();
   }
 
@@ -151,8 +152,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: FutureBuilder(
                       future: FirebaseFirestore.instance.collection("TeachingCamp").get(),
                       builder: (context, snapshot) {
-                        // log(snapshot.data!.docs[0]["name"].toString());
-                        for (int i = 0; i < snapshot.data!.docs.length; i++) {}
                         if (!snapshot.hasData) {
                           return Center(
                             child: LoadingAnimationWidget.waveDots(color: orangeColor, size: 50),

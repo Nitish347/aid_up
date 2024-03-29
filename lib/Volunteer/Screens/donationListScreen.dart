@@ -76,7 +76,7 @@ class DonationListScreen extends StatelessWidget {
               height: height * 0.02,
             ),
             Container(
-              width: width * 0.25,
+              width: width * 0.3,
               height: height * 0.05,
               alignment: Alignment.center,
               decoration: BoxDecoration(

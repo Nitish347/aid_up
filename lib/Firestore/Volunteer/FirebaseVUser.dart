@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:aid_up/controller/obsData.dart';
 import 'package:aid_up/model/DonationNGO.dart';
 import 'package:aid_up/model/TeachingModel.dart';
@@ -11,9 +13,6 @@ import 'package:uuid/uuid.dart';
 import '../../model/MoneyNGO.dart';
 
 class FirestoreVData {
-  //*********************Medicine Data
-
-  //******************User Data
   static userData(BuildContext context, String uid) async {
     final controller = Get.put(ObsData());
 
@@ -117,6 +116,40 @@ class FirestoreVData {
     } catch (e) {
       print(e.toString());
       return false;
+    }
+  }
+
+  static getDoantionMoney() async {
+    final controller = Get.put(ObsData());
+    try {
+      var snapshot = await FirebaseFirestore.instance.collection("MoneyDonation").get();
+      log(snapshot.docs.toString());
+      controller.donationMoneyList.clear();
+      log(snapshot.docs.toString());
+      for (int i = 0; i < snapshot.docs.length; i++) {
+        String name = snapshot.docs[i]["name"];
+        String phone = snapshot.docs[i]["phone"];
+        String receiver = snapshot.docs[i]["receiver"];
+        String deadline = snapshot!.docs[i]["deadline"];
+        String target = snapshot!.docs[i]["target"];
+        String desc = snapshot!.docs[i]["desc"];
+        List rules = snapshot!.docs[i]["rules"];
+        String cause = snapshot!.docs[i]["cause"];
+        MoneyNgoModel model = MoneyNgoModel.fromJson({
+          "name": name,
+          "phone": phone,
+          "receiver": receiver,
+          "deadline": deadline,
+          "target": target,
+          "desc": desc,
+          "cause": cause,
+          "rules": rules,
+          "total": "250"
+        });
+        controller.donationMoneyList.add(model);
+      }
+    } catch (e) {
+      log(e.toString());
     }
   }
 }

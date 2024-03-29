@@ -25,36 +25,38 @@ Widget NGOHomeCard(double height, double width, String pic, String title, String
         child: Row(
           children: [
             SizedBox(
-              width: width * 0.05,
+              width: width * 0.02,
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: height * 0.02,
-                ),
-                Text(
-                  title,
-                  style: GoogleFonts.dmSans(fontWeight: FontWeight.w600, fontSize: height * 0.024),
-                ),
-                SizedBox(
-                  height: height * 0.01,
-                ),
-                Container(
-                  width: width * 0.5,
-                  child: Expanded(
-                    child: Text(
-                      desc,
-                      style:
-                          GoogleFonts.dmSans(fontWeight: FontWeight.w400, fontSize: height * 0.02),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: height * 0.02,
+                  ),
+                  Text(
+                    title,
+                    style:
+                        GoogleFonts.dmSans(fontWeight: FontWeight.w600, fontSize: height * 0.024),
+                  ),
+                  SizedBox(
+                    height: height * 0.01,
+                  ),
+                  Container(
+                    child: Expanded(
+                      child: Text(
+                        desc,
+                        style: GoogleFonts.dmSans(
+                            fontWeight: FontWeight.w400, fontSize: height * 0.02),
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: height * 0.02,
-                ),
-              ],
+                  SizedBox(
+                    height: height * 0.02,
+                  ),
+                ],
+              ),
             ),
             Image(image: AssetImage(pic))
           ],

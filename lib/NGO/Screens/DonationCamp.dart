@@ -79,61 +79,106 @@ class _DonationCampState extends State<DonationCamp> {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Row(
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Checkbox(
-                        value: _clothes,
-                        checkColor: Colors.white,
-                        activeColor: orangeColor,
-                        onChanged: (value) {
-                          setState(() {
-                            _clothes = value!;
-                          });
-                        },
+                      Row(
+                        children: [
+                          Checkbox(
+                            value: _clothes,
+                            checkColor: Colors.white,
+                            activeColor: orangeColor,
+                            onChanged: (value) {
+                              setState(() {
+                                _clothes = value!;
+                              });
+                            },
+                          ),
+                          Text(
+                            "Clothes",
+                            style: GoogleFonts.dmSans(
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black,
+                                fontSize: height * 0.02),
+                          ),
+                        ],
                       ),
-                      Text(
-                        "Clothes",
-                        style: GoogleFonts.dmSans(fontWeight: FontWeight.w400, color: Colors.black),
+                      Row(
+                        children: [
+                          Checkbox(
+                            value: _books,
+                            checkColor: Colors.white,
+                            activeColor: orangeColor,
+                            onChanged: (value) {
+                              setState(() {
+                                _books = value!;
+                              });
+                            },
+                          ),
+                          Text(
+                            "Books & Stationery",
+                            style: GoogleFonts.dmSans(
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black,
+                                fontSize: height * 0.02),
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                  Row(
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Checkbox(
-                        value: _books,
-                        checkColor: Colors.white,
-                        activeColor: orangeColor,
-                        onChanged: (value) {
-                          setState(() {
-                            _books = value!;
-                          });
-                        },
+                      Row(
+                        children: [
+                          Checkbox(
+                            value: _money,
+                            checkColor: Colors.white,
+                            activeColor: orangeColor,
+                            onChanged: (value) {
+                              setState(() {
+                                _money = value!;
+                              });
+                            },
+                          ),
+                          FittedBox(
+                            child: Text(
+                              "Money",
+                              style: GoogleFonts.dmSans(
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.black,
+                                  fontSize: height * 0.02),
+                            ),
+                          ),
+                        ],
                       ),
-                      Text(
-                        "Books & Stationery",
-                        style: GoogleFonts.dmSans(fontWeight: FontWeight.w400, color: Colors.black),
-                      ),
+                      Row(
+                        children: [
+                          Checkbox(
+                            value: _food,
+                            checkColor: Colors.white,
+                            activeColor: orangeColor,
+                            onChanged: (value) {
+                              setState(() {
+                                _food = value!;
+                              });
+                            },
+                          ),
+                          Text(
+                            "Food",
+                            style: GoogleFonts.dmSans(
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black,
+                                fontSize: height * 0.02),
+                          ),
+                        ],
+                      )
                     ],
                   ),
-                  Row(
-                    children: [
-                      Checkbox(
-                        value: _food,
-                        checkColor: Colors.white,
-                        activeColor: orangeColor,
-                        onChanged: (value) {
-                          setState(() {
-                            _food = value!;
-                          });
-                        },
-                      ),
-                      Text(
-                        "Food",
-                        style: GoogleFonts.dmSans(fontWeight: FontWeight.w400, color: Colors.black),
-                      ),
-                    ],
-                  )
                 ],
               ),
               Row(
@@ -142,28 +187,7 @@ class _DonationCampState extends State<DonationCamp> {
                   Row(
                     children: [
                       Checkbox(
-                        value: _books,
-                        checkColor: Colors.white,
-                        activeColor: orangeColor,
-                        onChanged: (value) {
-                          setState(() {
-                            _money = value!;
-                          });
-                        },
-                      ),
-                      FittedBox(
-                        child: Text(
-                          "Money",
-                          style:
-                              GoogleFonts.dmSans(fontWeight: FontWeight.w400, color: Colors.black),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Checkbox(
-                        value: _food,
+                        value: _medical,
                         checkColor: Colors.white,
                         activeColor: orangeColor,
                         onChanged: (value) {
@@ -174,7 +198,10 @@ class _DonationCampState extends State<DonationCamp> {
                       ),
                       Text(
                         "Medical aid",
-                        style: GoogleFonts.dmSans(fontWeight: FontWeight.w400, color: Colors.black),
+                        style: GoogleFonts.dmSans(
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black,
+                            fontSize: height * 0.02),
                       ),
                     ],
                   )
@@ -197,6 +224,9 @@ class _DonationCampState extends State<DonationCamp> {
                 height: height * 0.025,
               ),
               textFieldDesc(height, width, "Description", "Add camp description", desc, descErr),
+              SizedBox(
+                height: height * 0.05,
+              ),
               Text(
                 "Rules: ",
                 style: GoogleFonts.dmSans(
@@ -330,7 +360,7 @@ class _DonationCampState extends State<DonationCamp> {
   Widget textFieldDesc(double height, double width, String title, String hint,
       TextEditingController controller, bool err) {
     return Container(
-      height: err ? height * 0.3 : height * 0.25,
+      height: err ? height * 0.3 : height * 0.3,
       // color: Colors.red,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

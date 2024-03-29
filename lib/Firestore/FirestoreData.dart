@@ -30,18 +30,6 @@ class FirestoreData {
     // print(_user.hospitalName);
   }
 
-  //***************** Hospital Data
-  static hospitalData(BuildContext context, String uid) async {
-    // var provider = Provider.of<UserProvider>(context, listen: false);
-    print("fetching");
-    var snp = await FirebaseFirestore.instance.collection("Users").doc(uid).get();
-    String hsptlName = snp.data()!["HospitalName"];
-    var snap = await FirebaseFirestore.instance.collection('HospitalNames').doc(hsptlName).get();
-    // HospitalModel hospitalModel = HospitalModel.fromJson(snap.data()!);
-    // provider.updateHopital(hospitalModel);
-  }
-
-  //******************** Hospital Names List
   static Future<bool> post(
       BuildContext context, DonationNgoModel userModel, String uid, String path) async {
     final controller = Get.put(ObsData());

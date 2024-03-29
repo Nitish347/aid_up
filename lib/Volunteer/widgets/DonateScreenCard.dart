@@ -10,7 +10,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../Screens/DonateDetail.dart';
 
-Widget DonateScreenCard(double height, double width, String text, String title, String pic) {
+Widget DonateScreenCard(double height, double width, String cause, String receiver, String target,
+    String collected, String deadline) {
   return Padding(
     padding: const EdgeInsets.all(8.0),
     child: Container(
@@ -39,14 +40,14 @@ Widget DonateScreenCard(double height, double width, String text, String title, 
             Row(
               children: [
                 Text(
-                  "Help a child get surgery",
+                  cause,
                   style: GoogleFonts.dmSans(fontWeight: FontWeight.w600, fontSize: width * 0.04),
                 ),
                 SizedBox(
                   width: width * 0.01,
                 ),
                 Text(
-                  "by Awaaz NGO",
+                  "by ${receiver}",
                   style: GoogleFonts.dmSans(
                       fontWeight: FontWeight.w300, fontSize: width * 0.025, color: Colors.grey),
                 ),
@@ -58,7 +59,7 @@ Widget DonateScreenCard(double height, double width, String text, String title, 
             Row(
               children: [
                 Text(
-                  "Rs 28000 ",
+                  "Rs $collected",
                   style: GoogleFonts.dmSans(
                       fontWeight: FontWeight.w600, fontSize: height * 0.018, color: orangeColor),
                 ),
@@ -66,7 +67,7 @@ Widget DonateScreenCard(double height, double width, String text, String title, 
                   width: width * 0.005,
                 ),
                 Text(
-                  "raised from Rs.40,000",
+                  "raised from Rs.$target",
                   style: GoogleFonts.dmSans(
                       fontWeight: FontWeight.w300, fontSize: height * 0.017, color: Colors.grey),
                 ),
@@ -78,17 +79,21 @@ Widget DonateScreenCard(double height, double width, String text, String title, 
             Row(
               children: [
                 Expanded(
-                  child: Container(
-                    height: height * 0.004,
-                    // width: width * 0.6,
-                    color: Colors.orange,
+                  child: LinearProgressIndicator(
+                    minHeight: height * 0.004,
+                    value: (int.parse(collected) / (int.parse(target) / 100)) / 100,
+                    // value: 0.5,
+                    // valueColor: Colors.green,
+                    backgroundColor: Colors.grey,
+                    color: orangeColor,
                   ),
                 ),
-                Container(
-                  height: height * 0.002,
-                  width: width * 0.2, // max value 0.655
-                  color: Colors.grey,
-                ),
+                // Container(
+                //   height: height * 0.002,
+                //   width: width * 0.1 -
+                //       width * ((int.parse(target) / int.parse(collected))) / 100, // max value 0.655
+                //   color: Colors.grey,
+                // ),
               ],
             ),
             Row(

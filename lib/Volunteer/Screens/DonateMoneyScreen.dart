@@ -1,6 +1,8 @@
 // import 'package:aid_up/widgets/DonateScreenCard.dart';
 // import 'package:aid_up/widgets/TeachCard.dart';
+import 'package:aid_up/controller/obsData.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../widgets/DonateScreenCard.dart';
@@ -12,6 +14,7 @@ class DonateMoneyScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
+    final controller = Get.put(ObsData());
     return SafeArea(
         child: Scaffold(
       backgroundColor: Colors.white,
@@ -72,7 +75,7 @@ class DonateMoneyScreen extends StatelessWidget {
               height: height * 0.02,
             ),
             Container(
-              width: width * 0.25,
+              width: width * 0.3,
               height: height * 0.05,
               alignment: Alignment.center,
               decoration: BoxDecoration(
@@ -96,8 +99,15 @@ class DonateMoneyScreen extends StatelessWidget {
             Expanded(
               child: Container(
                   child: ListView(
-                children: List.generate(10, (index) {
-                  return DonateScreenCard(height, width, "text", "title", "pic");
+                children: List.generate(controller.donationMoneyList.length, (index) {
+                  return DonateScreenCard(
+                      height,
+                      width,
+                      controller.donationMoneyList[index].cause!,
+                      controller.donationMoneyList[index].receiver!,
+                      controller.donationMoneyList[index].target!,
+                      controller.donationMoneyList[index].total!,
+                      controller.donationMoneyList[index].deadline!);
                 }),
               )),
             ),

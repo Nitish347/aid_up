@@ -1,6 +1,11 @@
 import 'package:aid_up/Constants.dart';
+import 'package:aid_up/Volunteer/Screens/signup/CreateAccount.dart';
+import 'package:aid_up/Volunteer/Screens/signup/login/login.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:aid_up/widgets/TeachCard.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../widgets/TeachCard2.dart';
@@ -38,13 +43,18 @@ class ProfileScreen extends StatelessWidget {
                 height: height * 0.02,
               ),
               ListTile(
-                leading: CircleAvatar(),
+                leading: Container(
+                  height: height * 0.06,
+                  width: height * 0.06,
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(50), color: orangeColor),
+                ),
                 title: Row(
                   children: [
                     Text(
                       "Naman Sharma,22",
                       style:
-                          GoogleFonts.dmSans(fontWeight: FontWeight.w600, fontSize: height * 0.025),
+                          GoogleFonts.dmSans(fontWeight: FontWeight.w600, fontSize: height * 0.022),
                     ),
                     IconButton(
                         onPressed: () {},
@@ -120,6 +130,20 @@ class ProfileScreen extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                     fontSize: height * 0.022,
                     color: Color(0xff191919)),
+              ),
+              Divider(
+                color: Color(0xff6A6A6A),
+              ),
+              InkWell(
+                onTap: () async {
+                  await FirebaseAuth.instance.signOut();
+                  Get.to(() => const Login());
+                },
+                child: Text(
+                  "Log Out",
+                  style: GoogleFonts.dmSans(
+                      fontWeight: FontWeight.w600, fontSize: height * 0.022, color: Colors.red),
+                ),
               ),
               SizedBox(
                 height: height * 0.03,

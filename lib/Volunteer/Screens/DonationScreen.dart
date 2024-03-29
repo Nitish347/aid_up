@@ -1,13 +1,20 @@
 // import 'package:aid_up/widgets/DonateScreenCard.dart';
 // import 'package:aid_up/widgets/TeachCard.dart';
+import 'dart:developer';
+
 import 'package:aid_up/controller/obsData.dart';
+import 'package:aid_up/model/MoneyNGO.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:page_view_dot_indicator/page_view_dot_indicator.dart';
 
+import '../../Constants.dart';
+import '../../Firestore/Volunteer/FirebaseVUser.dart';
 import '../widgets/DonateScreenCard.dart';
 import '../widgets/TeachCard.dart';
 import 'DonateMoneyScreen.dart';
@@ -23,6 +30,17 @@ class DonationScreen extends StatefulWidget {
 int ind = 0;
 
 class _DonationScreenState extends State<DonationScreen> {
+  getData() async {
+    await FirestoreVData.getDoantionMoney();
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    getData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -157,6 +175,7 @@ class _DonationScreenState extends State<DonationScreen> {
                   options: CarouselOptions(
                       height: height * 0.38,
                       enableInfiniteScroll: true,
+                      autoPlay: true,
                       onScrolled: (index) {
                         setState(() {
                           // print(index);
@@ -169,14 +188,44 @@ class _DonationScreenState extends State<DonationScreen> {
                           ind = index;
                         });
                       }),
-                  items: [1, 2, 3, 4, 5].map((i) {
+                  items: controller.donationMoneyList.map((i) {
                     return Builder(
                       builder: (BuildContext context) {
-                        return DonateScreenCard(height, width, "text", "title", "pic");
+                        return DonateScreenCard(
+                            height, width, i.cause!, i.receiver!, i.target!, i.total!, i.deadline!);
                       },
                     );
                   }).toList(),
                 ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //   children: [
+                //     Container(),
+
+                //               //   Container(
+                //               //   width: width * 0.2,
+                //               //   child: PageViewDotIndicator(
+                //               //     currentItem: ind,
+                //               //     count: controller.donationMoneyList.length,
+                //               //     unselectedColor: Colors.black26,
+                //               //     selectedColor: Colors.black,
+                //               //     size: Size(width * 0.015, width * 0.015),
+                //               //     unselectedSize: Size(width * 0.01, width * 0.01),
+                //               //     duration: const Duration(milliseconds: 200),
+                //               //   ),
+                //               // );
+                //             }
+                //           },
+                //         )),
+                //     InkWell(
+                //       onTap: () => Get.to(DonateMoneyScreen()),
+                //       child: Text(
+                //         "View All",
+                //         style: GoogleFonts.dmSans(decoration: TextDecoration.underline),
+                //       ),
+                //     )
+                //   ],
+                // ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -185,7 +234,7 @@ class _DonationScreenState extends State<DonationScreen> {
                       width: width * 0.2,
                       child: PageViewDotIndicator(
                         currentItem: ind,
-                        count: 5,
+                        count: controller.donationMoneyList.length,
                         unselectedColor: Colors.black26,
                         selectedColor: Colors.black,
                         size: Size(width * 0.015, width * 0.015),
@@ -194,12 +243,12 @@ class _DonationScreenState extends State<DonationScreen> {
                       ),
                     ),
                     InkWell(
-                      onTap: () => Get.to(DonateMoneyScreen()),
+                      onTap: () => Get.to(const DonateMoneyScreen()),
                       child: Text(
                         "View All",
                         style: GoogleFonts.dmSans(decoration: TextDecoration.underline),
                       ),
-                    )
+                    ),
                   ],
                 ),
                 SizedBox(
