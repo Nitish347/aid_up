@@ -46,7 +46,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                 height: height * 0.05,
               ),
               Text(
-                "Create account",
+                "Log In account",
                 style: GoogleFonts.dmSans(
                     color: orangeColor, fontSize: height * 0.04, fontWeight: FontWeight.w500),
               ),

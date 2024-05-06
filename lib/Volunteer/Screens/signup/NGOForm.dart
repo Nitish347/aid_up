@@ -24,8 +24,8 @@ class _NGOFormState extends State<NGOForm> {
   TextEditingController _dobController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _repeatPasswordController = TextEditingController();
-  bool _obscurePassword = true;
-  bool _obscureRepeatPassword = true;
+  bool _obscurePassword = false;
+  bool _obscureRepeatPassword = false;
 
   @override
   Widget build(BuildContext context) {
@@ -149,25 +149,25 @@ class _NGOFormState extends State<NGOForm> {
                 ),
                 SizedBox(height: height * 0.02),
                 Text(
-                  "Password",
+                  "NGO Reg. Number",
                   style: GoogleFonts.dmSans(fontSize: height * 0.021, fontWeight: FontWeight.w600),
                 ),
                 TextFormField(
                   controller: _passwordController,
                   decoration: InputDecoration(
-                    hintText: 'Password',
+                    hintText: 'Reg. n umber',
                     hintStyle: GoogleFonts.dmSans(fontSize: height * 0.017),
-                    suffixIcon: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _obscurePassword = !_obscurePassword;
-                        });
-                      },
-                      child: Icon(
-                        _obscurePassword ? Icons.visibility : Icons.visibility_off,
-                        color: Color(0xff1D3050),
-                      ),
-                    ),
+                    // suffixIcon: GestureDetector(
+                    //   onTap: () {
+                    //     setState(() {
+                    //       _obscurePassword = !_obscurePassword;
+                    //     });
+                    //   },
+                    //   child: Icon(
+                    //     _obscurePassword ? Icons.visibility : Icons.visibility_off,
+                    //     color: Color(0xff1D3050),
+                    //   ),
+                    // ),
                     focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: Color(0xff1D3050)),
                     ),
@@ -178,7 +178,7 @@ class _NGOFormState extends State<NGOForm> {
                   obscureText: _obscurePassword,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter your password';
+                      return 'Please enter your reg. number';
                     }
                     // You can add more password validation if needed
                     return null;
@@ -186,25 +186,25 @@ class _NGOFormState extends State<NGOForm> {
                 ),
                 SizedBox(height: height * 0.02),
                 Text(
-                  "Repeat password",
+                  "Repeat NGO Reg. Number",
                   style: GoogleFonts.dmSans(fontSize: height * 0.021, fontWeight: FontWeight.w600),
                 ),
                 TextFormField(
                   controller: _repeatPasswordController,
                   decoration: InputDecoration(
-                    hintText: 'Password',
+                    hintText: 'Reg, number',
                     hintStyle: GoogleFonts.dmSans(fontSize: height * 0.017),
-                    suffixIcon: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _obscureRepeatPassword = !_obscureRepeatPassword;
-                        });
-                      },
-                      child: Icon(
-                        _obscureRepeatPassword ? Icons.visibility : Icons.visibility_off,
-                        color: Color(0xff1D3050),
-                      ),
-                    ),
+                    // suffixIcon: GestureDetector(
+                    //   onTap: () {
+                    //     setState(() {
+                    //       _obscureRepeatPassword = !_obscureRepeatPassword;
+                    //     });
+                    //   },
+                    //   child: Icon(
+                    //     _obscureRepeatPassword ? Icons.visibility : Icons.visibility_off,
+                    //     color: Color(0xff1D3050),
+                    //   ),
+                    // ),
                     focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: Color(0xff1D3050)),
                     ),
@@ -215,10 +215,10 @@ class _NGOFormState extends State<NGOForm> {
                   obscureText: _obscureRepeatPassword,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please repeat your password';
+                      return 'Please repeat your reg. number';
                     }
                     if (value != _passwordController.text) {
-                      return 'Passwords do not match';
+                      return 'Number do not match';
                     }
                     return null;
                   },

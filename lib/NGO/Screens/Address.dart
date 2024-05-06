@@ -1,9 +1,14 @@
 // import 'package:aid_up/widgets/DonateScreenCard.dart';
 // import 'package:aid_up/widgets/TeachCard.dart';
+import 'dart:convert';
+import 'dart:developer';
+import 'package:http/http.dart' as http;
 import 'package:aid_up/Constants.dart';
 import 'package:aid_up/NGO/Screens/DonationCamp.dart';
 import 'package:aid_up/NGO/Screens/TeachingCamp.dart';
 import 'package:flutter/material.dart';
+
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -23,6 +28,46 @@ class AddressNGO extends StatefulWidget {
 class _AddressNGOState extends State<AddressNGO> {
   TextEditingController address = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  bool _loading = false;
+  String city='';
+  String district='';
+  String state='';
+  String pinCode='';
+  var client  = http.Client();
+  Future<void> _getCurrentCountry() async {
+    setState(() {
+      _loading = true;
+    });
+    print("inGeo");
+    try {
+      Position position =
+      await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+     var response =  await client.get(Uri.parse("https://geocode.maps.co/reverse?lat=${position.latitude}&lon=${position.longitude}&api_key=6639269741dbc660504583tnzcf2ad8"));
+
+     var data = json.decode(response.body);
+     data = data['address'];
+
+        setState(() {
+          city = data['city'];
+          district = data['state_district'];
+          state = data['state'];
+          pinCode = data['postcode'];
+
+        });
+
+    } catch (e) {
+      log('Error getting current country: $e');
+    }
+    setState(() {
+      _loading = false;
+    });
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _getCurrentCountry();
+  }
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -97,10 +142,30 @@ class _AddressNGOState extends State<AddressNGO> {
             SizedBox(
               height: height * 0.02,
             ),
-            Container(
+            InkWell(
+              onTap: (){
+                _getCurrentCountry();
+                address.text = city+ district+ state + pinCode;
+                log("address-->${address.text}");
+                if (address.text.isNotEmpty) {
+                  if (widget.tech!) {
+                    Get.to(TeachingCamp(
+                      address: address.text,
+                    ));
+                  } else if (widget.camp) {
+                    Get.to(DonationCamp(
+                      address: address.text,
+                    ));
+                  } else {
+                    Get.to(MoneyDinationCamp(
+                      address: address.text,
+                    ));
+                  }
+                }
+              },
               child: Row(
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.my_location,
                     color: orangeColor,
                   ),

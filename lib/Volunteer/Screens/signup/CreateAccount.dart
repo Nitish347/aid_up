@@ -1,10 +1,12 @@
 import 'package:aid_up/Constants.dart';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'NGOForm.dart';
 import 'VolunteerForm.dart';
+import 'login/login.dart';
 
 class CreateAccount extends StatefulWidget {
   const CreateAccount({Key? key}) : super(key: key);
@@ -13,7 +15,8 @@ class CreateAccount extends StatefulWidget {
   State<CreateAccount> createState() => _CreateAccountState();
 }
 
-class _CreateAccountState extends State<CreateAccount> with SingleTickerProviderStateMixin {
+class _CreateAccountState extends State<CreateAccount>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -35,7 +38,8 @@ class _CreateAccountState extends State<CreateAccount> with SingleTickerProvider
     return Scaffold(
         backgroundColor: Colors.white,
         body: Padding(
-          padding: EdgeInsets.only(top: height * 0.03, left: width * 0.03, right: width * 0.03),
+          padding: EdgeInsets.only(
+              top: height * 0.03, left: width * 0.03, right: width * 0.03),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,10 +47,35 @@ class _CreateAccountState extends State<CreateAccount> with SingleTickerProvider
               SizedBox(
                 height: height * 0.05,
               ),
-              Text(
-                "Create account",
-                style: GoogleFonts.dmSans(
-                    color: orangeColor, fontSize: height * 0.04, fontWeight: FontWeight.w500),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Create account",
+                    style: GoogleFonts.dmSans(
+                        color: orangeColor,
+                        fontSize: height * 0.04,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Get.to(() => Login());
+                    },
+                    child: Container(
+                      width: width * 0.2,
+                      height: height * 0.04,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                          color: blueColor,
+                          borderRadius: BorderRadius.circular(32)),
+                      child: Text(
+                        "Log In",
+                        style: GoogleFonts.dmSans(
+                            fontSize: height * 0.022, color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ],
               ),
               Container(
                 padding: EdgeInsets.all(16.0),
@@ -58,11 +87,12 @@ class _CreateAccountState extends State<CreateAccount> with SingleTickerProvider
                     ),
                     Tab(text: 'NGO'),
                   ],
-                  labelStyle:
-                      GoogleFonts.dmSans(fontWeight: FontWeight.w400, fontSize: height * 0.02),
+                  labelStyle: GoogleFonts.dmSans(
+                      fontWeight: FontWeight.w400, fontSize: height * 0.02),
                   labelColor: blueColor,
                   indicator: BoxDecoration(
-                    border: Border(bottom: BorderSide(color: blueColor, width: 2.0)),
+                    border: Border(
+                        bottom: BorderSide(color: blueColor, width: 2.0)),
                   ),
                 ),
               ),

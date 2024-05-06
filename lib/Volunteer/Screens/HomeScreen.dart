@@ -88,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ],
                         ),
                         Text(
-                          "Sarjapur Marathahalli road, kaikondrahalli,…",
+                          "Sarjapur Marathahalli road,…",
                           style: GoogleFonts.dmSans(
                               fontSize: height * 0.02, fontWeight: FontWeight.w400),
                         )

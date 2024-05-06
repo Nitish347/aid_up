@@ -275,7 +275,7 @@ class _DonationCampState extends State<DonationCamp> {
                       "rules": _rules
                     });
                     bool succ = await FirestoreData.post(
-                        context, model, controller.uid.value, "DnationCamp");
+                        context, model, controller.uid.value, "DonationCamp");
                     if (succ) {
                       Get.back();
                       QuickAlert.show(context: context, type: QuickAlertType.success);

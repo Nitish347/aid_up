@@ -50,6 +50,7 @@ Widget TeachCard2(
                 ),
                 Text(
                   ngo,
+                  maxLines: 1,
                   style: GoogleFonts.dmSans(fontWeight: FontWeight.w600, fontSize: height * 0.024),
                 ),
                 SizedBox(
