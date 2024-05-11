@@ -13,6 +13,9 @@ class ObsData extends GetxController {
   RxString uid = "".obs;
   RxMap ngoData = {}.obs;
   RxMap userData = {}.obs;
+  RxList bookedCamp = [].obs;
+  RxList bookedTeach = [].obs;
+
 
   RxList<TeachiingNgoModel> teachingList = <TeachiingNgoModel>[].obs;
   RxList<DonationNgoModel> donationList = <DonationNgoModel>[].obs;

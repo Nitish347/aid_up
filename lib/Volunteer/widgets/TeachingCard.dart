@@ -59,9 +59,13 @@ Widget DonationCard(double height, double width, DonationNgoModel model, String 
                 SizedBox(
                   width: 2,
                 ),
-                Text(
-                  model.address!,
-                  style: GoogleFonts.dmSans(fontWeight: FontWeight.w400, fontSize: height * 0.02),
+                Container(
+                  width: width*0.3,
+                  child: Text(
+                    model.address!,
+                    style: GoogleFonts.dmSans(fontWeight: FontWeight.w400, fontSize: height * 0.02),
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
               ],
             ),
@@ -169,9 +173,14 @@ Widget TeachingCard(double height, double width, TeachiingNgoModel model, String
                 SizedBox(
                   width: 2,
                 ),
-                Text(
-                  model.address!,
-                  style: GoogleFonts.dmSans(fontWeight: FontWeight.w400, fontSize: height * 0.02),
+                Container(
+                  width: width*0.3,
+                  child: Text(
+                    model.address!  ,
+
+                    style: GoogleFonts.dmSans(fontWeight: FontWeight.w400, fontSize: height * 0.02),
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
               ],
             ),

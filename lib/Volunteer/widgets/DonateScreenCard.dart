@@ -30,9 +30,12 @@ Widget DonateScreenCard(double height, double width, String cause, String receiv
             Container(
               height: height * 0.14,
               width: width,
-              decoration: BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(8)
-                  // image: DecorationImage(image: AssetImage(pic))
+              decoration: BoxDecoration( borderRadius: BorderRadius.circular(8),
+                  image: DecorationImage(image: AssetImage("assets/images/images.jpg"))
                   ),
+              child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.asset("assets/images/images.jpg",fit: BoxFit.cover,)),
             ),
             SizedBox(
               height: height * 0.02,

@@ -59,16 +59,16 @@ Widget TeachCard2(
                 IconWithText1(
                   height,
                   Icons.location_on_outlined,
-                  address,
+                  address,width
                 ),
                 SizedBox(
                   height: height * 0.005,
                 ),
-                IconWithText1(height, Icons.calendar_month, "Every Sunday"),
+                IconWithText1(height, Icons.calendar_month, "Every Sunday",width),
                 SizedBox(
                   height: height * 0.005,
                 ),
-                IconWithText1(height, Icons.watch_later_outlined, time),
+                IconWithText1(height, Icons.watch_later_outlined, time,width),
                 Expanded(
                   child: SizedBox(
                     height: height * 0.02,
@@ -180,16 +180,17 @@ Widget TeachCard3(
                 IconWithText1(
                   height,
                   Icons.location_on_outlined,
-                  address,
+                  address
+                    ,width
                 ),
                 SizedBox(
                   height: height * 0.005,
                 ),
-                IconWithText1(height, Icons.calendar_month, "Every Sunday"),
+                IconWithText1(height, Icons.calendar_month, "Every Sunday",width),
                 SizedBox(
                   height: height * 0.005,
                 ),
-                IconWithText1(height, Icons.watch_later_outlined, time),
+                IconWithText1(height, Icons.watch_later_outlined, time,width),
                 Expanded(
                   child: SizedBox(
                     height: height * 0.02,
@@ -255,7 +256,7 @@ Widget TeachCard3(
   );
 }
 
-Widget IconWithText1(double height, IconData icon, String text) {
+Widget IconWithText1(double height, IconData icon, String text,double width) {
   return Row(
     children: [
       Icon(
@@ -266,10 +267,15 @@ Widget IconWithText1(double height, IconData icon, String text) {
       SizedBox(
         width: 10,
       ),
-      Text(
-        text,
-        style: GoogleFonts.dmSans(fontWeight: FontWeight.w400, fontSize: height * 0.018),
-      ),
+      Container(
+        width:width*0.35 ,
+          child: Text(
+            text,
+            overflow: TextOverflow.ellipsis,
+            style: GoogleFonts.dmSans(fontWeight: FontWeight.w400, fontSize: height * 0.018),
+          ),
+        ),
+
     ],
   );
 }

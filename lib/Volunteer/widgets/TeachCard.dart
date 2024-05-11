@@ -47,15 +47,15 @@ Widget TeachCard(double height, double width, String NGO) {
                 SizedBox(
                   height: height * 0.015,
                 ),
-                IconWithText(height, Icons.location_on_outlined, "Mahagun Puram"),
+                IconWithText(height, Icons.location_on_outlined, "Mahagun Puram",width),
                 SizedBox(
                   height: height * 0.01,
                 ),
-                IconWithText(height, Icons.calendar_month, "Every Sunday"),
+                IconWithText(height, Icons.calendar_month, "Every Sunday",width),
                 SizedBox(
                   height: height * 0.01,
                 ),
-                IconWithText(height, Icons.watch_later_outlined, "9 am"),
+                IconWithText(height, Icons.watch_later_outlined, "9 am",width),
                 Expanded(
                   child: SizedBox(
                     height: height * 0.02,

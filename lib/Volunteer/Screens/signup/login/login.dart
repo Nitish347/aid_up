@@ -1,6 +1,9 @@
 import 'package:aid_up/Constants.dart';
+import 'package:aid_up/Volunteer/Screens/signup/CreateAccount.dart';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../NGOForm.dart';
@@ -45,10 +48,35 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
               SizedBox(
                 height: height * 0.05,
               ),
-              Text(
-                "Log In account",
-                style: GoogleFonts.dmSans(
-                    color: orangeColor, fontSize: height * 0.04, fontWeight: FontWeight.w500),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Log in account",
+                    style: GoogleFonts.dmSans(
+                        color: orangeColor,
+                        fontSize: height * 0.04,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Get.off(() => CreateAccount());
+                    },
+                    child: Container(
+                      width: width * 0.2,
+                      height: height * 0.04,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                          color: blueColor,
+                          borderRadius: BorderRadius.circular(32)),
+                      child: Text(
+                        "Log In",
+                        style: GoogleFonts.dmSans(
+                            fontSize: height * 0.022, color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ],
               ),
               Container(
                 padding: EdgeInsets.all(16.0),

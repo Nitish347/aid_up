@@ -98,4 +98,19 @@ class FirestoreData {
       return false;
     }
   }
+
+
+  static getBookedCamp(BuildContext context, ) async {
+    final controller = Get.put(ObsData());
+    var snp = await FirebaseFirestore.instance.collection("NGO").doc(controller.uid.value).collection("BookedDonationCamp").get();
+    print(snp.docs.toString());
+    controller.bookedCamp.value = snp.docs;
+  }
+
+  static getBookedTeach(BuildContext context, ) async {
+    final controller = Get.put(ObsData());
+    var snp = await FirebaseFirestore.instance.collection("NGO").doc(controller.uid.value).collection("BookedTeach").get();
+    print(snp.docs.toString());
+    controller.bookedTeach.value = snp.docs;
+  }
 }

@@ -14,18 +14,19 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../widgets/DescriptionText.dart';
-import '../widgets/HeadingText.dart';
-import '../widgets/IconWithText.dart';
+import '../../../Volunteer/widgets/DescriptionText.dart';
+import '../../../Volunteer/widgets/HeadingText.dart';
+import '../../../Volunteer/widgets/IconWithText.dart';
 
-class TeachCampDetailScreen extends StatefulWidget {
+
+class BookedTeahDetail extends StatefulWidget {
   TeachiingNgoModel model;
-  TeachCampDetailScreen({required this.model});
+  BookedTeahDetail({required this.model});
   @override
-  _TeachCampDetailScreenState createState() => _TeachCampDetailScreenState();
+  _BookedTeahDetailState createState() => _BookedTeahDetailState();
 }
 
-class _TeachCampDetailScreenState extends State<TeachCampDetailScreen> {
+class _BookedTeahDetailState extends State<BookedTeahDetail> {
   bool _loading = false;
   ScrollController _scrollController = ScrollController();
   bool _isScrolledUp = false;
@@ -262,35 +263,7 @@ class _TeachCampDetailScreenState extends State<TeachCampDetailScreen> {
                   SizedBox(
                     height: height * 0.02,
                   ),
-                  InkWell(
-                    onTap: () async {
-                      setState(() {
-                        _loading = true;
-                      });
-                      await FirestoreVData.bookTeach(context, widget.model);
-                      setState(() {
-                        _loading = false;
-                      });
-                    },
-                    child: Container(
-                      alignment: Alignment.center,
-                      width: width,
-                      child: Container(
-                        width: width * 0.4,
-                        height: height * 0.05,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                            color: blueColor, borderRadius: BorderRadius.circular(32)),
-                        child: _loading
-                            ? LoadingAnimationWidget.waveDots(color: Colors.white, size: 50)
-                            : Text(
-                                "Book",
-                                style: GoogleFonts.dmSans(
-                                    fontSize: height * 0.022, color: Colors.white),
-                              ),
-                      ),
-                    ),
-                  ),
+
                 ],
               ),
             ),

@@ -264,7 +264,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               String date = snapshot.data!.docs[index]["date"];
                               String desc = snapshot.data!.docs[index]["desc"];
                               List rules = snapshot.data!.docs[index]["rules"];
-                              String uid = snapshot.data!.docs[index]["uid"];
+                              String uid = snapshot.data!.docs[index]["uid"] ?? "";
 
                               // String subject = snapshot.data!.docs[index]["subject"];
                               DonationNgoModel model = DonationNgoModel.fromJson({

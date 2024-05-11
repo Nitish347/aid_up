@@ -1,5 +1,7 @@
 import 'package:aid_up/Constants.dart';
+import 'package:aid_up/NGO/Screens/booked/booked_camp.dart';
 import 'package:aid_up/NGO/Screens/booked/booked_screen.dart';
+import 'package:aid_up/NGO/Screens/booked/booked_teach.dart';
 import 'package:aid_up/Volunteer/Screens/signup/CreateAccount.dart';
 import 'package:aid_up/Volunteer/Screens/signup/login/login.dart';
 import 'package:aid_up/controller/obsData.dart';
@@ -10,11 +12,12 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../Services/token.dart';
-import '../widgets/TeachCard2.dart';
+import '../../../Services/token.dart';
 
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+
+
+class NgoProfileScreen extends StatelessWidget {
+  const NgoProfileScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -94,9 +97,13 @@ class ProfileScreen extends StatelessWidget {
               ),
               InkWell(
                   onTap: (){
-                    Get.to(BookedScreen());
+                    Get.to(BookedCamp());
                   },
-                  child: profileOptions(height, width, "Bookings", "View your past sessions or donations ")),
+                  child: profileOptions(height, width, "Camp Bookings", "View your past sessions or donations ")),InkWell(
+                  onTap: (){
+                    Get.to(BookedTeach());
+                  },
+                  child: profileOptions(height, width, "Teach Bookings", "View your past sessions or donations ")),
               profileOptions(height, width, "Privacy", "Change your password"),
               profileOptions(height, width, "Certificates", "Download your volunteer certificates"),
               profileOptions(height, width, "Notifications", "Manage notifications"),

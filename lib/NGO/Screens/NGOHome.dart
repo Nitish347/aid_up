@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:aid_up/Constants.dart';
 import 'package:aid_up/NGO/Screens/Address.dart';
+import 'package:aid_up/NGO/Screens/booked/NgoProfile.dart';
 import 'package:aid_up/NGO/widgets/NGOHomeCard.dart';
 import 'package:aid_up/Services/token.dart';
 import 'package:aid_up/controller/obsData.dart';
@@ -18,6 +19,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../Firestore/FirestoreData.dart';
+import '../../Volunteer/Screens/Profile.dart';
 
 class NGOHomeScreen extends StatefulWidget {
   const NGOHomeScreen({Key? key}) : super(key: key);
@@ -86,8 +88,9 @@ class _NGOHomeScreenState extends State<NGOHomeScreen> {
                           ),
                           InkWell(
                             onTap: () async {
-                              await TokenStorage.removeToken();
-                              await FirebaseAuth.instance.signOut();
+                              Get.to(()=>NgoProfileScreen());
+                              // await TokenStorage.removeToken();
+                              // await FirebaseAuth.instance.signOut();
                             },
                             child: CircleAvatar(
                               backgroundColor: blueColor,

@@ -132,7 +132,7 @@ class _DonationScreenState extends State<DonationScreen> {
                   items: controller.donationList.map((i) {
                     return Builder(
                       builder: (BuildContext context) {
-                        return InkWell(child: TeachCard(height * 0.8, width * 0.7, i.name!));
+                        return InkWell(child: TeachCard(height * 0.7, width * 0.7, i.name!));
                       },
                     );
                   }).toList(),
@@ -141,18 +141,6 @@ class _DonationScreenState extends State<DonationScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(),
-                    // Container(
-                    //   width: width * 0.2,
-                    //   child: PageViewDotIndicator(
-                    //     currentItem: ind,
-                    //     count: controller.donationList.length - 1,
-                    //     unselectedColor: Colors.black26,
-                    //     selectedColor: Colors.black,
-                    //     size: Size(width * 0.015, width * 0.015),
-                    //     unselectedSize: Size(width * 0.01, width * 0.01),
-                    //     duration: const Duration(milliseconds: 200),
-                    //   ),
-                    // ),
                     InkWell(
                       onTap: () {
                         Get.to(DonationListScreen());
@@ -197,35 +185,6 @@ class _DonationScreenState extends State<DonationScreen> {
                     );
                   }).toList(),
                 ),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //   children: [
-                //     Container(),
-
-                //               //   Container(
-                //               //   width: width * 0.2,
-                //               //   child: PageViewDotIndicator(
-                //               //     currentItem: ind,
-                //               //     count: controller.donationMoneyList.length,
-                //               //     unselectedColor: Colors.black26,
-                //               //     selectedColor: Colors.black,
-                //               //     size: Size(width * 0.015, width * 0.015),
-                //               //     unselectedSize: Size(width * 0.01, width * 0.01),
-                //               //     duration: const Duration(milliseconds: 200),
-                //               //   ),
-                //               // );
-                //             }
-                //           },
-                //         )),
-                //     InkWell(
-                //       onTap: () => Get.to(DonateMoneyScreen()),
-                //       child: Text(
-                //         "View All",
-                //         style: GoogleFonts.dmSans(decoration: TextDecoration.underline),
-                //       ),
-                //     )
-                //   ],
-                // ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

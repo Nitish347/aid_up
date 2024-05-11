@@ -59,7 +59,7 @@ class _CreateAccountState extends State<CreateAccount>
                   ),
                   InkWell(
                     onTap: () {
-                      Get.to(() => Login());
+                      Get.off(() => Login());
                     },
                     child: Container(
                       width: width * 0.2,

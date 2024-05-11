@@ -14,19 +14,20 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../Firestore/Volunteer/FirebaseVUser.dart';
-import '../widgets/DescriptionText.dart';
-import '../widgets/HeadingText.dart';
-import '../widgets/IconWithText.dart';
+import '../../../Firestore/Volunteer/FirebaseVUser.dart';
+import '../../../Volunteer/widgets/DescriptionText.dart';
+import '../../../Volunteer/widgets/IconWithText.dart';
 
-class CampDetailScreen extends StatefulWidget {
+
+
+class BookedCampDetail extends StatefulWidget {
   DonationNgoModel model;
-  CampDetailScreen({required this.model});
+  BookedCampDetail({required this.model});
   @override
-  _CampDetailScreenState createState() => _CampDetailScreenState();
+  _BookedCampDetailState createState() => _BookedCampDetailState();
 }
 
-class _CampDetailScreenState extends State<CampDetailScreen> {
+class _BookedCampDetailState extends State<BookedCampDetail> {
   ScrollController _scrollController = ScrollController();
   bool _isScrolledUp = false;
   bool _loading = false;
@@ -251,14 +252,6 @@ class _CampDetailScreenState extends State<CampDetailScreen> {
                     style: GoogleFonts.dmSans(
                         fontSize: height * 0.02, color: Colors.black, fontWeight: FontWeight.w400),
                   ),
-                  Text(
-                    "Select Donation Type: ",
-                    style: GoogleFonts.dmSans(
-                        fontSize: height * 0.022, fontWeight: FontWeight.w600, color: Colors.black),
-                  ),
-                  SizedBox(
-                    height: height * 0.02,
-                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -284,7 +277,7 @@ class _CampDetailScreenState extends State<CampDetailScreen> {
                                   child: Text(
                                     "Clothes",
                                     style: GoogleFonts.dmSans(
-                                        // fontSize: height * 0.015,
+                                      // fontSize: height * 0.015,
                                         fontWeight: FontWeight.w400,
                                         color: widget.model.donationType![0]["clothes"]
                                             ? Colors.black
@@ -310,7 +303,7 @@ class _CampDetailScreenState extends State<CampDetailScreen> {
                                   child: Text(
                                     "Books & Stationery",
                                     style: GoogleFonts.dmSans(
-                                        // fontSize: height * 0.02,
+                                      // fontSize: height * 0.02,
                                         fontWeight: FontWeight.w400,
                                         color: widget.model.donationType![0]["books"]
                                             ? Colors.black
@@ -344,7 +337,7 @@ class _CampDetailScreenState extends State<CampDetailScreen> {
                                   child: Text(
                                     "Medical",
                                     style: GoogleFonts.dmSans(
-                                        // fontSize: height * 0.015,
+                                      // fontSize: height * 0.015,
                                         fontWeight: FontWeight.w400,
                                         color: widget.model.donationType![0]["medical"]
                                             ? Colors.black
@@ -369,7 +362,7 @@ class _CampDetailScreenState extends State<CampDetailScreen> {
                                   child: Text(
                                     "Money",
                                     style: GoogleFonts.dmSans(
-                                        // fontSize: height * 0.02,
+                                      // fontSize: height * 0.02,
                                         fontWeight: FontWeight.w400,
                                         color: widget.model.donationType![0]["money"]
                                             ? Colors.black
@@ -400,7 +393,7 @@ class _CampDetailScreenState extends State<CampDetailScreen> {
                         child: Text(
                           "Food",
                           style: GoogleFonts.dmSans(
-                              // fontSize: height * 0.02,
+                            // fontSize: height * 0.02,
                               fontWeight: FontWeight.w400,
                               color: widget.model.donationType![0]["food"]
                                   ? Colors.black
@@ -409,56 +402,7 @@ class _CampDetailScreenState extends State<CampDetailScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(
-                    height: height * 0.05,
-                  ),
-                  InkWell(
-                    onTap: () async {
-                      setState(() {
-                        _loading = true;
-                      });
-                      DonationNgoModel model = DonationNgoModel.fromJson({
-                        "name": widget.model.name,
-                        "phone": widget.model.phone,
-                        "address": widget.model.address,
-                        "donation_type": [
-                          {
-                            "clothes": _clothesChecked,
-                            "books": _booksAndStationeryChecked,
-                            "food": _foodChecked,
-                            "money": _money,
-                            "medical": _medical
-                          }
-                        ],
-                        "date": widget.model.date,
-                        "time": widget.model.time,
-                        "desc": widget.model.desc,
-                        "rules": widget.model.rules
-                      });
-                      await FirestoreVData.bookDonationCamp(context, model);
-                      setState(() {
-                        _loading = false;
-                      });
-                    },
-                    child: Container(
-                      alignment: Alignment.center,
-                      width: width,
-                      child: Container(
-                        width: width * 0.4,
-                        height: height * 0.05,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                            color: blueColor, borderRadius: BorderRadius.circular(32)),
-                        child: _loading
-                            ? LoadingAnimationWidget.waveDots(color: Colors.white, size: 50)
-                            : Text(
-                                "Book",
-                                style: GoogleFonts.dmSans(
-                                    fontSize: height * 0.022, color: Colors.white),
-                              ),
-                      ),
-                    ),
-                  ),
+
                   SizedBox(
                     height: height * 0.1,
                   )

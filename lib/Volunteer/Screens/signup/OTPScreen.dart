@@ -68,7 +68,7 @@ class _PinScreenState extends State<PinScreen> {
               height: height * 0.030,
             ),
             Text(
-              "Enter the 4 digit code sent to\nyou on ${widget.userModel.phone}. ",
+              "Enter the 6 digit code sent to\nyou on ${widget.userModel.phone}. ",
               style: GoogleFonts.dmSans(
                   color: Colors.black, fontSize: height * 0.02, fontWeight: FontWeight.w400),
             ),
@@ -167,7 +167,7 @@ class _PinScreenState extends State<PinScreen> {
 
   Widget buildPinTextField(TextEditingController controller, FocusNode focusNode) {
     return Container(
-      width: 50.0,
+      width: 30.0,
       height: 50.0,
       margin: EdgeInsets.symmetric(horizontal: 8.0),
       child: TextField(
